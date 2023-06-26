@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="static/ai4ce.png" type="image/x-icon">
+  <title>Human Reasoning</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    /* Custom CSS styles */
+    body {
+      background-color: #f8f9fa; /* Set background color to light gray */
+    }
+
+    .container {
+      margin-top: 40px;
+      background-color: white; /* Set content area background color to white */
+      padding: 20px;
+      border-radius: 10px; /* Add rounded corners */
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Add shadow effect */
+    }
+
+    #canvasContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #leftCanvas,
+    #rightCanvas {
+      max-width: 25vw;
+      max-height: 25vh;
+      width: auto;
+      height: auto;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .button-container button {
+      margin: 0 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Custom page content -->
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+      <h2>Reasoning</h2>
+      <a href="/visualize" class="btn btn-primary">Return</a>
+    </div>
+    <p>Select a Scene:</p>
+    <select class="form-control" id="subfolderSelect">
+      <option value="">-- Select --</option>
+    </select>
+    <select class="form-control" id="floorSelect">
+      <option value="0" selected>0</option>
+    </select>
+    <div id="canvasContainer">
+      <canvas id="leftCanvas"></canvas>
+      <canvas id="rightCanvas"></canvas>
+    </div>
+    <div class="button-container">
+      <button class="btn btn-primary" id='similarButton'>Similar</button>
+      <button class="btn btn-primary" id='notSimilarButton'>Not similar</button>
+    </div>
+    <div class="text-center mt-3">
+      <button id="randomButton" class="btn btn-primary">Random</button>
+    </div>
+  </div>
+
+  <!-- Include necessary JavaScript files -->
+  <script src="static/pointmap.js"></script>
+  <script src="static/humanmap.js"></script>
+  <script src='static/reasoning.js'></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

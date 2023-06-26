@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="static/ai4ce.png" type="image/x-icon">
+  <title>Spatial_reasoning_Aboutus</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    /* 自定义CSS样式 */
+    body {
+      background-color: #f8f9fa; /* 设置背景色为浅灰色 */
+    }
+
+    .navbar-custom {
+      background-color: #57068c; /* NYU紫色 */
+    }
+
+    .navbar-custom .navbar-brand {
+      color: white;
+      font-size: 24px;
+    }
+
+    .navbar-custom .navbar-nav .nav-link {
+      color: white;
+      font-size: 18px;
+    }
+
+    .navbar-custom .navbar-nav .nav-link:hover,
+    .navbar-custom .navbar-nav .nav-link.active {
+      background-color: #8e24aa; /* 鼠标悬停时和当前活动菜单项的背景色 */
+    }
+
+    .container {
+      margin-top: 40px;
+      background-color: white; /* 设置内容区域背景色为白色 */
+      padding: 20px;
+      border-radius: 10px; /* 添加圆角边框 */
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+    }
+
+    .container h2,
+    .container h3,
+    .container p {
+      margin-bottom: 20px; /* 添加段落间距 */
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var currentPage = location.pathname;
+      var navLinks = document.querySelectorAll(".navbar-nav .nav-link");
+      navLinks.forEach(function(link) {
+        var linkHref = link.getAttribute("href");
+        if (linkHref && currentPage.startsWith(linkHref)) {
+          link.classList.add("active");
+        } else {
+          link.classList.remove("active");
+        }
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <!-- 导航栏 -->
+  <nav class="navbar navbar-expand-lg navbar-custom">
+    <a class="navbar-brand" href="#">
+      <img src="static/nyu-logo.jpg" alt="NYU Logo" height='60' width='60' class="d-inline-block align-top">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/index">ABOUT</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/data">DATA</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/tutorial">TUTORIAL</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/methods">METHODS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/ai4ce/Spatial_reasoning/tree/main">DOWNLOAD</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/aboutus">ABOUT US</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/visualize">VISUALIZE</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- 自定义主页内容 -->
+  <div class="container">
+    <h2> AI4CE</h2>
+    <p>The AI4CE (pronounced as “A-I-force”) lab at New York University conducts multidisciplinary use-inspired research. We aim to advance fundamental automation and intelligence technologies such as robot vision and machine learning, while addressing challenges of their applications in civil and mechanical engineering domains.</p>
+
+    <h4>Project Members:</h4>
+    <ul>
+      <li>Chao Chen</li>
+      <li>Nobel Dang</li>
+      <li>Ammaar Firozi</li>
+      <li>Kevin Lee</li>
+      <li>Xinhao Liu</li>
+      <li>Yimeng Ye</li>
+      <li>Kingston Yip</li>
+      <li>Jinli Duan</li>
+    </ul>
+  </div>
+
+  <!-- 添加所需的JavaScript文件 -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>

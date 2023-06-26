@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="static/ai4ce.png" type="image/x-icon">
+  <title>Spatial_reasoning_tutorial</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    /* Custom CSS styles */
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .navbar-custom {
+      background-color: #57068c;
+    }
+
+    .navbar-custom .navbar-brand {
+      color: white;
+      font-size: 24px;
+    }
+
+    .navbar-custom .navbar-nav .nav-link {
+      color: white;
+      font-size: 18px;
+    }
+
+    .navbar-custom .navbar-nav .nav-link:hover,
+    .navbar-custom .navbar-nav .nav-link.active {
+      background-color: #8e24aa;
+    }
+
+    .container {
+      margin-top: 40px;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .container h2,
+    .container h3,
+    .container p {
+      margin-bottom: 20px;
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var currentPage = location.pathname;
+      var navLinks = document.querySelectorAll(".navbar-nav .nav-link");
+      navLinks.forEach(function(link) {
+        var linkHref = link.getAttribute("href");
+        if (linkHref && currentPage.startsWith(linkHref)) {
+          link.classList.add("active");
+        } else {
+          link.classList.remove("active");
+        }
+      });
+    });
+  </script>
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav class="navbar navbar-expand-lg navbar-custom">
+    <a class="navbar-brand" href="#">
+      <img src="static/nyu-logo.jpg" alt="NYU Logo" height='60' width='60' class="d-inline-block align-top">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/index">ABOUT</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/data">DATA</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/tutorial">TUTORIAL</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/methods">METHODS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/ai4ce/Spatial_reasoning/tree/main">DOWNLOAD</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/aboutus">ABOUT US</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/visualize">VISUALIZE</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- 自定义主页内容 -->
+  <div class="container">
+      <h1>Spatial reasoning</h1>
+      <br>
+      <h2>Abstract</h2>
+      <p>We are targeting on matching two perspective RGB together even they have small overlapping. This problem refers to long baseline matching. If two RGB images are far away from each other, but there exist partial overlapping, we can reason there must be a hallway from image 1 to image 2. We can also classify this problem as a binary classification problem. If two images are spatially accessible.</p>
+
+      <h2>Generate Dataset</h2>
+
+      <h3>1. Setting up the environment</h3>
+      <p>For faster installation, we want to use the computation node by running an interactive job.</p>
+      <pre><code>srun -t30:00 -c4 --mem=64000 --pty /bin/bash</code></pre>
+
+      <h3>2. Download the code</h3>
+      <p>Download this repository:</p>
+      <pre><code>cd /scratch/$USER
+  git clone https://github.com/ai4ce/Spatial_reasoning.git
+  git checkout Jinli</code></pre>
+
+      <h3>3. Run the code</h3>
+      <p>Run an interactive job with GPU:</p>
+      <pre><code>srun -t 2:00:00 -c4 --mem=64000 --gres=gpu:1 --pty /bin/bash</code></pre>
+
+      <h3>4. Find the world coordinate</h3>
+      <p>Now that we've generated RGB images and depth information, we can find the world coordinate for each pixel. There are two approaches we can try...</p>
+
+      <h2>Running algorithm.py</h2>
+
+      <h3>1. algo.py setup</h3>
+      <p>Once you have your environment set up, create a directory to store the Gibson dataset</p>
+      <pre><code>mkdir /scratch/$USER/Spatial_reasoning/dataset/examples/gibson</code></pre>
+
+      <h3>2. Dataset</h3>
+      <p>Download links...</p>
+
+      <h3>3. Install required library</h3>
+      <p>Next, open the Singularity in read-write mode and install open3d.</p>
+      <pre><code>pip install open3d-python
+  conda install -c pytorch pytorch
+  pip install scikit-learn
+  pip install opencv-python</code></pre>
+
+      <h3>4. Run the code within the Singularity</h3>
+      <pre><code>cd /scratch/$USER/Spatial_reasoning/dataset/examples/class
+  python algo.py</code></pre>
+
+      <h2>Overall File Structure:</h2>
+      <pre><code>- Spatial_reasoning
+    - data
+      - scene_datasets
+        - [scene_dataset_files...]
+      - versioned_data
+        - habitat_test_scenes_1.0
+          - [versioned_data_files...]
+    - point-cloud
+      - maskCreation.ipynb
+      - imgToGlobalCoords.ipynb
+      - [Supporting_data_files]
+    - baseline-feature-matching
+      - BaselineFeatureMatching.ipynb
+      - [Supporting_dataset]
+    - dataset
+      - examples
+        - class
+          - algo.py
+          - [Supporting_function_files]
+        - ab_test.py
+        - benchmark.py
+        - dataset_gen.ipynb
+        - demo_runner.py
+        - fairmotion_interface.py
+        - fairmotion_interface_utils.py
+        - igibson_floor_heights.json
+        - motion_viewer.py
+        - run_batches.py
+        - runner.sh
+        - settings.py
+        - test_runner.py
+        - viewer.py
+        - visualize_graphs.py
+    - .gitignore
+    - LICENSE
+    - README.md</code></pre>
+
+      <h2>Point Cloud Mask:</h2>
+      <p>Run maskCreation.ipynb under /point-cloud:</p>
+  </div>
+  <!-- 添加所需的JavaScript文件 -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

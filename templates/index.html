@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="static/ai4ce.png" type="image/x-icon">
+  <title>Spatial_reasoning</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    /* 自定义CSS样式 */
+    body {
+      background-color: #f8f9fa; /* 设置背景色为浅灰色 */
+    }
+
+    .navbar-custom {
+      background-color: #57068c; /* NYU紫色 */
+    }
+
+    .navbar-custom .navbar-brand {
+      color: white;
+      font-size: 24px;
+    }
+
+    .navbar-custom .navbar-nav .nav-link {
+      color: white;
+      font-size: 18px;
+    }
+
+    .navbar-custom .navbar-nav .nav-link:hover,
+    .navbar-custom .navbar-nav .nav-link.active {
+      background-color: #8e24aa; /* 鼠标悬停时和当前活动菜单项的背景色 */
+    }
+
+    .container {
+      margin-top: 40px;
+      background-color: white; /* 设置内容区域背景色为白色 */
+      padding: 20px;
+      border-radius: 10px; /* 添加圆角边框 */
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+    }
+
+    .container h2,
+    .container h3,
+    .container p {
+      margin-bottom: 20px; /* 添加段落间距 */
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var currentPage = location.pathname;
+      var navLinks = document.querySelectorAll(".navbar-nav .nav-link");
+      navLinks.forEach(function(link) {
+        var linkHref = link.getAttribute("href");
+        if (linkHref && (currentPage === linkHref || (currentPage === '/' && linkHref === '/index'))) {
+          link.classList.add("active");
+        } else {
+          link.classList.remove("active");
+        }
+      });
+    });
+  </script>
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav class="navbar navbar-expand-lg navbar-custom">
+    <a class="navbar-brand" href="#">
+      <img src="static/nyu-logo.jpg" alt="NYU Logo" height='60' width='60' class="d-inline-block align-top">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/index">ABOUT</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/data">DATA</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/tutorial">TUTORIAL</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/methods">METHODS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/ai4ce/Spatial_reasoning/tree/main">DOWNLOAD</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/aboutus">ABOUT US</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/visualize">VISUALIZE</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- 自定义主页内容 -->
+  <div class="container">
+    <h2>Project Overview:</h2>
+    <p>The proposed project aims to address a key problem in spatial reasoning: long baseline matching of perspective RGB images with minimal overlap. Our goal is to infer spatial connections between two distantly related RGB images that partially overlap and to establish a corridor from one image to another. The challenge can be framed as a binary classification problem, determining whether two images are spatially accessible to each other.</p>
+
+    <h4>1. Methods:</h4>
+    <p>We will apply and compare several supervised and unsupervised learning algorithms, such as VGG16, ViT_B16_224, and SuperGlue, alongside non-learning methods like RANSAC/SIFT and Color Histogram for benchmarking purposes. The paper "Predicate Correlation Learning for Scene Graph Generation" will also be reviewed for insights into correlation learning in scene graphs.</p>
+
+    <h4>2. Dataset Processing:</h4>
+    <p>we propose to generate a matrix/map (0 = unexplored; 1 = explored/invalid) for each floor in a given scene. The height will determine the floor, while the number of floors will be known from the metadata. The procedure for the exploration and mapping of a scene includes several steps, beginning with random target sampling, new camera poses within a radius of the target, and coverage calculations. The process repeats until more than a certain percentage of the area is explored or the process is deemed "stuck", meaning it can no longer find unexplored regions. In such cases, a random unexplored region within the floor will be selected as the target.</p>
+    <div style="display: flex; justify-content: center;">
+      <img src="static/pipeline.png" alt="Dataset generation Pipeline" width="800" height="500">
+    </div>
+
+    <h4>3. Confidence Score:</h4>
+    <p>It calculates a confidence score for a candidate location within an environment, guiding a genetic algorithm-based navigation strategy. The score reflects the potential informativeness of moving to the candidate location, factoring in the expected observations and their overlap with existing maps, considering the relative positions of the candidate with saved poses. This score helps the algorithm to determine the next best location to explore based on current knowledge, ultimately returning the highest confidence candidate pose and its related elements.</p>
+
+    <h4>4. Contributions:</h4>
+    <p>The project contributions are threefold:</p>
+
+      <p>     a.The construction of a reason dataset, which serves as the foundation for this research.</p>
+
+      <p>     b.A comprehensive analysis of multiple baselines on both synthetic and real data sets. This comparative study would provide a clear understanding of the strengths and weaknesses of each method.</p>
+
+      <p>     c.A simple yet innovative method to address the problem of long baseline spatial reasoning for RGB image matching. The novelty lies in the way spatial relations are inferred between distantly related images, contributing significantly to the field of image processing and computer vision.</p>
+
+    <h4>5. Pipeline:</h4>
+    <div style="display: flex; justify-content: center;">
+      <img src="static/pipeline2.png" alt="Overall Pipeline" width="800" height="450">
+    </div>
+  </div>
+
+  <!-- 添加所需的JavaScript文件 -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

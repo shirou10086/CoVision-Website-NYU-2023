@@ -97,6 +97,8 @@ def draw_from_mongodb():
     return jsonify(data)
 
 if __name__ == '__main__':
+    print("Starting Flask app")
+    print("MongoDB URI: ", os.getenv('MONGODB_URI'))
     #connection_string =  "mongodb://jinli:humanmap@ac-s7qdv0r-shard-00-00.54g9dm5.mongodb.net:27017,ac-s7qdv0r-shard-00-01.54g9dm5.mongodb.net:27017,ac-s7qdv0r-shard-00-02.54g9dm5.mongodb.net:27017/?ssl=true&replicaSet=atlas-1372pk-shard-0&authSource=admin&retryWrites=true&w=majority"
     #replace jinli and humanmap with your user/password
     app.run(debug=True)

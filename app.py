@@ -4,11 +4,10 @@ from pymongo import MongoClient
 import json
 import os
 
+app = Flask(__name__, static_folder='static', static_url_path='/static')
 client = MongoClient(os.getenv('MONGODB_URI'))
 database = client['spatial_reasoning']
 collection = database['humanmap']
-app = Flask(__name__, static_folder='static', static_url_path='/static')
-
 helper.main()
 @app.route('/')
 def index():

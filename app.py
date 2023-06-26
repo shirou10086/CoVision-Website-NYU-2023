@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify
 import helper
 from pymongo import MongoClient
 import json
+import os
 
 app = Flask(__name__, static_folder='static', static_url_path='/static')
 
@@ -96,7 +97,8 @@ def draw_from_mongodb():
 if __name__ == '__main__':
     connection_string =  "mongodb://jinli:humanmap@ac-s7qdv0r-shard-00-00.54g9dm5.mongodb.net:27017,ac-s7qdv0r-shard-00-01.54g9dm5.mongodb.net:27017,ac-s7qdv0r-shard-00-02.54g9dm5.mongodb.net:27017/?ssl=true&replicaSet=atlas-1372pk-shard-0&authSource=admin&retryWrites=true&w=majority"
 #replace jinli and humanmap with your user/password
-    client = MongoClient(connection_string)
+
+    client = MongoClient(os.getenv('MONGODB_URI'))
     database = client['spatial_reasoning']
     collection = database['humanmap']
     app.run(debug=True)

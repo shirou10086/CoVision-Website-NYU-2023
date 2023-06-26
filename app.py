@@ -3,6 +3,8 @@ import helper
 from pymongo import MongoClient
 import json
 import os
+import statistics
+
 
 app = Flask(__name__, static_folder='static', static_url_path='/static')
 client = MongoClient(os.getenv('MONGODB_URI'))
@@ -83,15 +85,17 @@ def draw_from_mongodb():
     scene = request.args.get('scene')
     floor = request.args.get('floor')
     data = []
-    for item in collection.find({'currscene': scene, 'currfloor': int(floor)}):
-        print("Found a matching document")
-        startNode = item['startNode']
-        endNode = item['endNode']
-        similar = item['similar']
-        notsimilar = item['notsimilar']
 
+    matching_documents = list(collection.find({'currscene': scene, 'currfloor': int(floor)}))
+    similar_values = [int(item['similar']) for item in matching_documents]
+    median_value = statistics.median(similar_values)
 
-        if int(similar) > int(notsimilar):
+    for item in matching_documents:
+        if int(item['similar']) >= median_value:
+            startNode = item['startNode']
+            endNode = item['endNode']
+            similar = item['similar']
+            notsimilar = item['notsimilar']
             data.append([startNode, endNode, similar, notsimilar])
 
     return jsonify(data)

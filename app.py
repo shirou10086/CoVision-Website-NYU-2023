@@ -91,11 +91,12 @@ def draw_from_mongodb():
     median_value = statistics.median(similar_values)
 
     for item in matching_documents:
-        if int(item['similar']) >= median_value:
+        similar = int(item['similar'])
+        notsimilar = int(item['notsimilar'])
+
+        if similar >= median_value and notsimilar < similar:
             startNode = item['startNode']
             endNode = item['endNode']
-            similar = item['similar']
-            notsimilar = item['notsimilar']
             data.append([startNode, endNode, similar, notsimilar])
 
     return jsonify(data)

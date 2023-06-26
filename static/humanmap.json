@@ -1,0 +1,34 @@
+[
+  {
+    "currscene": "Adrian",
+    "currfloor": 0,
+    "startNode": 5,
+    "endNode": 1,
+    "similar": 1,
+    "notsimilar": 0
+  },
+  {
+    "currscene": "Adrian",
+    "currfloor": 0,
+    "startNode": 2,
+    "endNode": 1,
+    "similar": 1,
+    "notsimilar": 0
+  },
+  {
+    "currscene": "Adrian",
+    "currfloor": 0,
+    "startNode": 4,
+    "endNode": 0,
+    "similar": 1,
+    "notsimilar": 0
+  },
+  {
+    "currscene": "Andover",
+    "currfloor": 0,
+    "startNode": 3,
+    "endNode": 2,
+    "similar": 0,
+    "notsimilar": 1
+  }
+]

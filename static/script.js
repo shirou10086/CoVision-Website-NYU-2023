@@ -113,7 +113,6 @@ document.addEventListener("DOMContentLoaded", function() {
   // 获取画布对象和上下文
   var leftCanvas = document.getElementById('leftCanvas');
   var leftCtx = leftCanvas.getContext('2d');
-
   function drawPointsOnCanvas(canvas, points, rel_mat, changerate, drawX, drawY) {
     var context = canvas.getContext("2d");
     var radius = 5;
@@ -156,22 +155,24 @@ document.addEventListener("DOMContentLoaded", function() {
       container.appendChild(button);
     }
     // 绘制humanmap中的关联线
-    for (var i = 0; i < humanmap.length; i++) {
-      var [currscene, currfloor, startNode, endNode,similar,notsimilar] = humanmap[i];
-      if (scene === currscene && floor === currfloor && similar>notsimilar) {
-        console.log(startNode)
-        var startX = points[startNode][0] * changerate + drawX;
-        var startY = points[startNode][1] * changerate + drawY;
-        var endX = points[endNode][0] * changerate + drawX;
-        var endY = points[endNode][1] * changerate + drawY;
+    fetch('/draw_from_mongodb?scene=' + scene + '&floor=' + floor)
+      .then(response => response.json())
+      .then(data => {
+        for (var i = 0; i < data.length; i++) {
+          var [startNode, endNode, similar, notsimilar] = data[i];
+          console.log('chenggong'+startNode)
+          var startX = points[startNode][0] * changerate + drawX;
+          var startY = points[startNode][1] * changerate + drawY;
+          var endX = points[endNode][0] * changerate + drawX;
+          var endY = points[endNode][1] * changerate + drawY;
 
-        context.beginPath();
-        context.moveTo(startX, startY);
-        context.strokeStyle = "red";
-        context.lineTo(endX, endY);
-        context.stroke();
-      }
-    }
+          context.beginPath();
+          context.moveTo(startX, startY);
+          context.strokeStyle = "red";
+          context.lineTo(endX, endY);
+          context.stroke();
+        }
+      });
     return positions;
   }
 

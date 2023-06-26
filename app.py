@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 import helper
-import pymongo
+from pymongo import MongoClient
 import json
 
 app = Flask(__name__, static_folder='static', static_url_path='/static')
@@ -43,35 +43,60 @@ def reasoning():
 def update_humanmap():
     humanmap_data = request.get_json()  # 获取前端发送的humanmap数据
 
-    # 读取已存在的 humanmap.js 文件内容
-    with open('static/humanmap.js', 'r') as file:
-        existing_data = file.read()
+    # 插入或更新humanmap数据
+    for item in humanmap_data:
+        existing_pair = collection.find_one({
+            'currscene': item[0],
+            'currfloor': item[1],
+            'startNode': item[2],
+            'endNode': item[3]
+        })
 
-    # 提取 humanmap 变量的值
-    existing_humanmap = ""
-    if 'var humanmap =' in existing_data:
-        existing_humanmap = existing_data.split('var humanmap =')[1].split(';')[0].strip()
+        if existing_pair:
+            # 更新现有的pair的相似值
+            collection.update_one(
+                {
+                    '_id': existing_pair['_id']
+                },
+                {
+                    '$inc': {'similar': 1}
+                }
+            )
+        else:
+            # 插入新的pair数据
+            collection.insert_one({
+                'currscene': item[0],
+                'currfloor': item[1],
+                'startNode': item[2],
+                'endNode': item[3],
+                'similar': 1,
+                'notsimilar': 0
+            })
 
-    # 将新数据与已有数据合并
-    updated_humanmap = []
-    if existing_humanmap:
-        existing_humanmap = existing_humanmap.rstrip(',')
-        updated_humanmap = json.loads(existing_humanmap)
+    return 'Humanmap updated successfully', 200
 
-        # 去除已有数据中与新数据重复的部分
-        updated_humanmap = [item for item in updated_humanmap if item not in humanmap_data]
+@app.route('/draw_from_mongodb')
+def draw_from_mongodb():
+    scene = request.args.get('scene')
+    floor = request.args.get('floor')
+    data = []
+    for item in collection.find({'currscene': scene, 'currfloor': int(floor)}):
+        print("Found a matching document")
+        startNode = item['startNode']
+        endNode = item['endNode']
+        similar = item['similar']
+        notsimilar = item['notsimilar']
 
-        # 合并新数据
-        updated_humanmap.extend(humanmap_data)
-    else:
-        updated_humanmap = humanmap_data
 
-    # 将更新后的数据写入 humanmap.js 文件
-    with open('static/humanmap.js', 'w') as file:
-        file.write('var humanmap = ' + json.dumps(updated_humanmap) + ';\n')
+        if int(similar) > int(notsimilar):
+            data.append([startNode, endNode, similar, notsimilar])
 
-    return 'Humanmap updated successfully'
-
+    return jsonify(data)
 
 if __name__ == '__main__':
+    connection_string =  "mongodb://jinli:humanmap@ac-s7qdv0r-shard-00-00.54g9dm5.mongodb.net:27017,ac-s7qdv0r-shard-00-01.54g9dm5.mongodb.net:27017,ac-s7qdv0r-shard-00-02.54g9dm5.mongodb.net:27017/?ssl=true&replicaSet=atlas-1372pk-shard-0&authSource=admin&retryWrites=true&w=majority"
+#replace jinli and humanmap with your user/password
+    client = MongoClient(connection_string)
+    database = client['spatial_reasoning']
+    collection = database['humanmap']
     app.run(debug=True)

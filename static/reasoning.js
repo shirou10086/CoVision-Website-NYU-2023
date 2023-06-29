@@ -64,15 +64,17 @@ document.addEventListener("DOMContentLoaded", function() {
 
     var leftImage = new Image();
     var rightImage = new Image();
-    var loadingSpinner = document.getElementById("loadingSpinner");
-    loadingSpinner.style.display = "block";
+    var leftLoadingSpinner = document.getElementById("leftLoadingSpinner");
+    var rightLoadingSpinner = document.getElementById("rightLoadingSpinner");
+    leftLoadingSpinner.style.display = "block";
+    rightLoadingSpinner.style.display = "block";
 
     leftImage.onload = function() {
       leftCanvas.width = leftImage.width; // 根据加载的图片尺寸调整画布大小
       leftCanvas.height = leftImage.height;
       leftCtx.clearRect(0, 0, leftCanvas.width, leftCanvas.height);
       leftCtx.drawImage(leftImage, 0, 0, leftCanvas.width, leftCanvas.height);
-      loadingSpinner.style.display = "none";
+      leftLoadingSpinner.style.display = "none";
     };
 
     rightImage.onload = function() {
@@ -80,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function() {
       rightCanvas.height = rightImage.height;
       rightCtx.clearRect(0, 0, rightCanvas.width, rightCanvas.height);
       rightCtx.drawImage(rightImage, 0, 0, rightCanvas.width, rightCanvas.height);
-      loadingSpinner.style.display = "none";
+      rightLoadingSpinner.style.display = "none";
     };
 
     leftImage.src = "/static/dataset/" + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + leftImageIndex + ".png";

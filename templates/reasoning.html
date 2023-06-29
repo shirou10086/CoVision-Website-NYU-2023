@@ -27,10 +27,6 @@
       align-items: center;
       margin-bottom: 20px; /* 添加底部间距 */
     }
-    .canvas-container {
-      position: relative;
-      display: inline-block;
-    }
 
     #leftCanvas,
     #rightCanvas {
@@ -52,21 +48,6 @@
       margin-top: 10px; /* 添加顶部间距 */
       margin-bottom: 10px; /* 添加底部间距 */
     }
-    .loading-spinner {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
 
     .button-container {
       display: flex;
@@ -96,14 +77,10 @@
       <option value="0" selected>0</option>
     </select>
     <div id="canvasContainer">
-      <div id="leftCanvasContainer" class="canvas-container">
-        <canvas id="leftCanvas"></canvas>
-        <div id="leftLoadingSpinner" class="loading-spinner"></div>
-      </div>
-      <div id="rightCanvasContainer" class="canvas-container">
-        <canvas id="rightCanvas"></canvas>
-        <div id="rightLoadingSpinner" class="loading-spinner"></div>
-      </div>
+      <div id="leftCanvasPlaceholder" class="loading-icon"></div>
+      <div id="rightCanvasPlaceholder" class="loading-icon"></div>
+      <canvas id="leftCanvas"></canvas>
+      <canvas id="rightCanvas"></canvas>
     </div>
     <div class="button-container">
       <button class="btn btn-primary" id='similarButton'>Similar</button>

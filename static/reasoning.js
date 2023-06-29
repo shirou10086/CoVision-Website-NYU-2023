@@ -66,17 +66,21 @@ document.addEventListener("DOMContentLoaded", function() {
     var rightImage = new Image();
 
     leftImage.onload = function() {
-      leftCtx.clearRect(0, 0, leftCanvas.width, leftCanvas.height); // 清除画布内容
-      leftCtx.fillStyle = "#ffffff"; // 设置填充色为白色
-      leftCtx.fillRect(0, 0, leftCanvas.width, leftCanvas.height); // 填充整个画布
-      leftCtx.drawImage(leftImage, 0, 0, leftCanvas.width, leftCanvas.height);
+      setTimeout(function() {
+        leftCtx.clearRect(0, 0, leftCanvas.width, leftCanvas.height); // 清除画布内容
+        leftCtx.fillStyle = "#ffffff"; // 设置填充色为白色
+        leftCtx.fillRect(0, 0, leftCanvas.width, leftCanvas.height); // 填充整个画布
+        leftCtx.drawImage(leftImage, 0, 0, leftCanvas.width, leftCanvas.height);
+      }, 300); // 延迟 0.3 秒加载新图片
     };
 
     rightImage.onload = function() {
-      rightCtx.clearRect(0, 0, rightCanvas.width, rightCanvas.height); // 清除画布内容
-      rightCtx.fillStyle = "#ffffff"; // 设置填充色为白色
-      rightCtx.fillRect(0, 0, rightCanvas.width, rightCanvas.height); // 填充整个画布
-      rightCtx.drawImage(rightImage, 0, 0, rightCanvas.width, rightCanvas.height);
+      setTimeout(function() {
+        rightCtx.clearRect(0, 0, rightCanvas.width, rightCanvas.height); // 清除画布内容
+        rightCtx.fillStyle = "#ffffff"; // 设置填充色为白色
+        rightCtx.fillRect(0, 0, rightCanvas.width, rightCanvas.height); // 填充整个画布
+        rightCtx.drawImage(rightImage, 0, 0, rightCanvas.width, rightCanvas.height);
+      }, 300); // 延迟 0.3 秒加载新图片
     };
 
     leftImage.src = "/static/dataset/" + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + leftImageIndex + ".png";

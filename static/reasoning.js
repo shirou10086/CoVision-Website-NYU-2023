@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function() {
     setTimeout(function() {
       leftImage.src = "/static/dataset/" + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + leftImageIndex + ".png";
       rightImage.src = "/static/dataset/" + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + rightImageIndex + ".png";
-    }, 300); // 延迟 0.3 秒加载新图片
+    }, 100); // 延迟 0.3 秒加载新图片
 
     // 获取对应节点的位置信息
     var leftImagePosition = saved_grid_pose[leftImageIndex];

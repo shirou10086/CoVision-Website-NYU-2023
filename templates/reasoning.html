@@ -22,17 +22,25 @@
 
     #canvasContainer {
       display: flex;
-      justify-content: space-between; /* 左右对齐 */
+      justify-content: center; /* 水平居中 */
       align-items: center;
       margin-bottom: 20px; /* 添加底部间距 */
     }
 
     #leftCanvas,
     #rightCanvas {
-      max-width: 25vw;
+      max-width: calc(50% - 5px); /* 设置最大宽度为页面的一半减去缝隙宽度 */
       max-height: 25vh;
       width: auto;
       height: auto;
+    }
+
+    #leftCanvas {
+      margin-right: 5px; /* 设置右边缝隙宽度为5px */
+    }
+
+    #rightCanvas {
+      margin-left: 5px; /* 设置左边缝隙宽度为5px */
     }
 
     .button-container {
@@ -45,6 +53,7 @@
       margin: 0 10px;
     }
   </style>
+
 </head>
 <body>
   <!-- Custom page content -->

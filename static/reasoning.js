@@ -1,6 +1,4 @@
 document.addEventListener("DOMContentLoaded", function() {
-  var leftPlaceholder = document.getElementById("leftCanvasPlaceholder");
-  var rightPlaceholder = document.getElementById("rightCanvasPlaceholder");
   var leftCanvas = document.getElementById("leftCanvas");
   var rightCanvas = document.getElementById("rightCanvas");
   var leftCtx = leftCanvas.getContext("2d");
@@ -38,11 +36,6 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function updateCanvas() {
-    leftCanvas.style.display = "none";
-    rightCanvas.style.display = "none";
-    leftPlaceholder.style.display = "block";
-    rightPlaceholder.style.display = "block";
-
     var selectedOption = subfolderSelect.options[subfolderSelect.selectedIndex];
     var folderName = selectedOption.text;
     var floorOptions = floormap[folderName];
@@ -65,21 +58,23 @@ document.addEventListener("DOMContentLoaded", function() {
     var rightImage = new Image();
 
     leftImage.onload = function() {
-      leftPlaceholder.style.display = "none";
-      leftCanvas.style.display = "block";
       leftCtx.clearRect(0, 0, leftCanvas.width, leftCanvas.height);
       leftCtx.drawImage(leftImage, 0, 0, leftCanvas.width, leftCanvas.height);
     };
 
     rightImage.onload = function() {
-      rightPlaceholder.style.display = "none";
-      rightCanvas.style.display = "block";
       rightCtx.clearRect(0, 0, rightCanvas.width, rightCanvas.height);
       rightCtx.drawImage(rightImage, 0, 0, rightCanvas.width, rightCanvas.height);
     };
 
     leftImage.src = "/static/dataset/" + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + leftImageIndex + ".png";
     rightImage.src = "/static/dataset/" + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + rightImageIndex + ".png";
+
+    // 添加循环代表
+    leftCtx.fillStyle = "#f8f9fa"; // 设置颜色
+    leftCtx.fillRect(0, 0, leftCanvas.width / 2, leftCanvas.height); // 绘制左侧代表
+    rightCtx.fillStyle = "#f8f9fa"; // 设置颜色
+    rightCtx.fillRect(rightCanvas.width / 2, 0, rightCanvas.width / 2, rightCanvas.height); // 绘制右侧代表
   }
 
   function populateFloorOptions(scene) {

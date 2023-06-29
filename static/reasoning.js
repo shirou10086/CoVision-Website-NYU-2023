@@ -64,8 +64,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
     var leftImage = new Image();
     var rightImage = new Image();
+    var leftCanvasContainer = document.getElementById("leftCanvasContainer");
+    var rightCanvasContainer = document.getElementById("rightCanvasContainer");
     var leftLoadingSpinner = document.getElementById("leftLoadingSpinner");
     var rightLoadingSpinner = document.getElementById("rightLoadingSpinner");
+    leftCanvasContainer.style.display = "none";
+    rightCanvasContainer.style.display = "none";
     leftLoadingSpinner.style.display = "block";
     rightLoadingSpinner.style.display = "block";
 
@@ -74,6 +78,7 @@ document.addEventListener("DOMContentLoaded", function() {
       leftCanvas.height = leftImage.height;
       leftCtx.clearRect(0, 0, leftCanvas.width, leftCanvas.height);
       leftCtx.drawImage(leftImage, 0, 0, leftCanvas.width, leftCanvas.height);
+      leftCanvasContainer.style.display = "block";
       leftLoadingSpinner.style.display = "none";
     };
 
@@ -82,6 +87,7 @@ document.addEventListener("DOMContentLoaded", function() {
       rightCanvas.height = rightImage.height;
       rightCtx.clearRect(0, 0, rightCanvas.width, rightCanvas.height);
       rightCtx.drawImage(rightImage, 0, 0, rightCanvas.width, rightCanvas.height);
+      rightCanvasContainer.style.display = "block";
       rightLoadingSpinner.style.display = "none";
     };
 

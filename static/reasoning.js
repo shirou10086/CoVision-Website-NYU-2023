@@ -66,16 +66,16 @@ document.addEventListener("DOMContentLoaded", function() {
     var rightImage = new Image();
 
     leftImage.onload = function() {
-      leftCanvas.width = leftImage.width; // 根据加载的图片尺寸调整画布大小
-      leftCanvas.height = leftImage.height;
-      leftCtx.clearRect(0, 0, leftCanvas.width, leftCanvas.height);
+      leftCtx.clearRect(0, 0, leftCanvas.width, leftCanvas.height); // 清除画布内容
+      leftCtx.fillStyle = "#ffffff"; // 设置填充色为白色
+      leftCtx.fillRect(0, 0, leftCanvas.width, leftCanvas.height); // 填充整个画布
       leftCtx.drawImage(leftImage, 0, 0, leftCanvas.width, leftCanvas.height);
     };
 
     rightImage.onload = function() {
-      rightCanvas.width = rightImage.width; // 根据加载的图片尺寸调整画布大小
-      rightCanvas.height = rightImage.height;
-      rightCtx.clearRect(0, 0, rightCanvas.width, rightCanvas.height);
+      rightCtx.clearRect(0, 0, rightCanvas.width, rightCanvas.height); // 清除画布内容
+      rightCtx.fillStyle = "#ffffff"; // 设置填充色为白色
+      rightCtx.fillRect(0, 0, rightCanvas.width, rightCanvas.height); // 填充整个画布
       rightCtx.drawImage(rightImage, 0, 0, rightCanvas.width, rightCanvas.height);
     };
 

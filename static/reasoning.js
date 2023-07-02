@@ -181,6 +181,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var floorIndex = getRandomIndex(floorOptions);
     subfolderSelect.selectedIndex = sceneIndex;
     floorSelect.selectedIndex = floorIndex;
+    updateCanvas();
   }
   function populateFloorOptions(scene) {
     var selectedOption = subfolderSelect.options[subfolderSelect.selectedIndex];

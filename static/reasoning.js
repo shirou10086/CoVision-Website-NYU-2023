@@ -243,4 +243,5 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   randomlySelectSceneAndFloor();
+  updateCanvas();
 });

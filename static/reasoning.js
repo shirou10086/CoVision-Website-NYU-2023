@@ -65,30 +65,22 @@ document.addEventListener("DOMContentLoaded", function() {
     var leftImage = new Image();
     var rightImage = new Image();
 
-    // 显示白色背景
-    leftCtx.clearRect(0, 0, leftCanvas.width, leftCanvas.height); // 清除画布内容
-    leftCtx.fillStyle = "#ffffff"; // 设置填充色为白色
-    leftCtx.fillRect(0, 0, leftCanvas.width, leftCanvas.height); // 填充整个画布
-
-    rightCtx.clearRect(0, 0, rightCanvas.width, rightCanvas.height); // 清除画布内容
-    rightCtx.fillStyle = "#ffffff"; // 设置填充色为白色
-    rightCtx.fillRect(0, 0, rightCanvas.width, rightCanvas.height); // 填充整个画布
-
-    // 加载新图片
     leftImage.onload = function() {
-      leftCtx.clearRect(0, 0, leftCanvas.width, leftCanvas.height); // 清除画布内容
+      leftCanvas.width = leftImage.width; // 根据加载的图片尺寸调整画布大小
+      leftCanvas.height = leftImage.height;
+      leftCtx.clearRect(0, 0, leftCanvas.width, leftCanvas.height);
       leftCtx.drawImage(leftImage, 0, 0, leftCanvas.width, leftCanvas.height);
     };
 
     rightImage.onload = function() {
-      rightCtx.clearRect(0, 0, rightCanvas.width, rightCanvas.height); // 清除画布内容
+      rightCanvas.width = rightImage.width; // 根据加载的图片尺寸调整画布大小
+      rightCanvas.height = rightImage.height;
+      rightCtx.clearRect(0, 0, rightCanvas.width, rightCanvas.height);
       rightCtx.drawImage(rightImage, 0, 0, rightCanvas.width, rightCanvas.height);
     };
 
-    setTimeout(function() {
-      leftImage.src = "/static/dataset/" + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + leftImageIndex + ".png";
-      rightImage.src = "/static/dataset/" + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + rightImageIndex + ".png";
-    }, 10); // 延迟 0.3 秒加载新图片
+    leftImage.src = "/static/dataset/" + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + leftImageIndex + ".png";
+    rightImage.src = "/static/dataset/" + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + rightImageIndex + ".png";
 
     // 获取对应节点的位置信息
     var leftImagePosition = saved_grid_pose[leftImageIndex];
@@ -218,20 +210,22 @@ document.addEventListener("DOMContentLoaded", function() {
       updateCanvas();
     }
   });
-
   function randomlySelectSceneAndFloor() {
+    displayedPairs = [];
     var sceneIndex = getRandomIndex(subfolderList.length - 1);
-    var selectedOption = subfolderSelect.options[sceneIndex];
-    sceneName = selectedOption.text;
+    var sceneOption = subfolderSelect.options[sceneIndex];
+    sceneName = sceneOption.text;
     subfolderSelect.selectedIndex = sceneIndex;
+    populateFloorOptions(sceneName);
 
-    var floorOptions = floormap[sceneName];
-    var floorIndex = getRandomIndex(floorOptions);
+    var floorOption = floormap[sceneName];
+    var floorIndex = getRandomIndex(floorOption);
     floorSelect.selectedIndex = floorIndex;
-    floor = parseInt(floorSelect.value);
+    floor = floorIndex;
 
     updateCanvas();
   }
 
   randomlySelectSceneAndFloor();
+  updateCanvas();
 });

@@ -175,7 +175,13 @@ document.addEventListener("DOMContentLoaded", function() {
       updateCanvas(); // Load the next pair
     });
   }
-
+  function randomlySelectSceneAndFloor() {
+    var sceneIndex = getRandomIndex(subfolderList.length - 1);
+    var floorOptions = floormap[subfolderList[sceneIndex]];
+    var floorIndex = getRandomIndex(floorOptions);
+    subfolderSelect.selectedIndex = sceneIndex;
+    floorSelect.selectedIndex = floorIndex;
+  }
   function populateFloorOptions(scene) {
     var selectedOption = subfolderSelect.options[subfolderSelect.selectedIndex];
     var folderName = selectedOption.text;
@@ -219,5 +225,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 
-  updateCanvas();
+  randomlySelectSceneAndFloor();
+  updateCanvas(); // 调用函数以加载随机的图像对
 });

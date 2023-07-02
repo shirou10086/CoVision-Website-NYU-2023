@@ -65,29 +65,25 @@ document.addEventListener("DOMContentLoaded", function() {
     var leftImage = new Image();
     var rightImage = new Image();
 
-    // 设置画布尺寸和背景颜色
-    leftCanvas.width = leftImage.width;
-    leftCanvas.height = leftImage.height;
-    leftCtx.fillStyle = "yellow";
-    leftCtx.fillRect(0, 0, leftCanvas.width, leftCanvas.height);
-
-    rightCanvas.width = rightImage.width;
-    rightCanvas.height = rightImage.height;
-    rightCtx.fillStyle = "yellow";
-    rightCtx.fillRect(0, 0, rightCanvas.width, rightCanvas.height);
-
-    // 当图片加载后，清除背景颜色并画上新图片
     leftImage.onload = function() {
+      leftCanvas.width = leftImage.width; // 根据加载的图片尺寸调整画布大小
+      leftCanvas.height = leftImage.height;
       leftCtx.clearRect(0, 0, leftCanvas.width, leftCanvas.height);
+      leftCtx.fillStyle = "yellow"; // 设置为白色
+      leftCtx.fillRect(0, 0, leftCanvas.width, leftCanvas.height); // 填充整个画布
       leftCtx.drawImage(leftImage, 0, 0, leftCanvas.width, leftCanvas.height);
     };
 
     rightImage.onload = function() {
+      rightCanvas.width = rightImage.width; // 根据加载的图片尺寸调整画布大小
+      rightCanvas.height = rightImage.height;
       rightCtx.clearRect(0, 0, rightCanvas.width, rightCanvas.height);
+      rightCtx.fillStyle = "yellow"; // 设置为白色
+      rightCtx.fillRect(0, 0, rightCanvas.width, rightCanvas.height); // 填充整个画布
       rightCtx.drawImage(rightImage, 0, 0, rightCanvas.width, rightCanvas.height);
     };
 
-    // 延迟0.1秒后设置图片源
+
     setTimeout(function() {
       leftImage.src = "/static/dataset/" + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + leftImageIndex + ".png";
     }, 100);
@@ -95,7 +91,6 @@ document.addEventListener("DOMContentLoaded", function() {
     setTimeout(function() {
       rightImage.src = "/static/dataset/" + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + rightImageIndex + ".png";
     }, 100);
-
 
 
     // 获取对应节点的位置信息

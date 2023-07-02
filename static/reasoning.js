@@ -65,23 +65,33 @@ document.addEventListener("DOMContentLoaded", function() {
     var leftImage = new Image();
     var rightImage = new Image();
 
-    leftImage.onload = function() {
-      leftCanvas.width = leftImage.width; // 根据加载的图片尺寸调整画布大小
-      leftCanvas.height = leftImage.height;
-      leftCtx.clearRect(0, 0, leftCanvas.width, leftCanvas.height);
-      leftCtx.fillStyle = "yellow"; // 设置为白色
-      leftCtx.fillRect(0, 0, leftCanvas.width, leftCanvas.height); // 填充整个画布
-      leftCtx.drawImage(leftImage, 0, 0, leftCanvas.width, leftCanvas.height);
-    };
+    function clearAndFillBackground(ctx, canvas) {
+      canvas.width = canvas.width; // 根据画布的尺寸调整画布大小
+      canvas.height = canvas.height;
+      ctx.clearRect(0, 0, canvas.width, canvas.height); // 清空画布
+      ctx.fillStyle = "yellow"; // 设置为黄色
+      ctx.fillRect(0, 0, canvas.width, canvas.height); // 填充整个画布
+    }
 
-    rightImage.onload = function() {
-      rightCanvas.width = rightImage.width; // 根据加载的图片尺寸调整画布大小
-      rightCanvas.height = rightImage.height;
-      rightCtx.clearRect(0, 0, rightCanvas.width, rightCanvas.height);
-      rightCtx.fillStyle = "yellow"; // 设置为白色
-      rightCtx.fillRect(0, 0, rightCanvas.width, rightCanvas.height); // 填充整个画布
-      rightCtx.drawImage(rightImage, 0, 0, rightCanvas.width, rightCanvas.height);
-    };
+    function loadImageToCanvas(image, ctx, canvas) {
+      image.onload = function() {
+        ctx.drawImage(image, 0, 0, canvas.width, canvas.height); // 绘制图片
+      };
+    }
+
+    // 为左侧画布填充背景色，并在 0.1 秒后加载图片
+    clearAndFillBackground(leftCtx, leftCanvas); // 清空并填充背景
+    setTimeout(function() {
+      loadImageToCanvas(leftImage, leftCtx, leftCanvas);
+    }, 100);
+
+    // 为右侧画布填充背景色，并在 0.1 秒后加载图片
+    clearAndFillBackground(rightCtx, rightCanvas); // 清空并填充背景
+    setTimeout(function() {
+      loadImageToCanvas(rightImage, rightCtx, rightCanvas);
+    }, 100);
+
+
 
 
     setTimeout(function() {

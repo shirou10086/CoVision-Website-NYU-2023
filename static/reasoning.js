@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function() {
       leftCanvas.width = leftImage.width; // 根据加载的图片尺寸调整画布大小
       leftCanvas.height = leftImage.height;
       leftCtx.clearRect(0, 0, leftCanvas.width, leftCanvas.height);
-      leftCtx.fillStyle = "white"; // 设置为白色
+      leftCtx.fillStyle = "yellow"; // 设置为白色
       leftCtx.fillRect(0, 0, leftCanvas.width, leftCanvas.height); // 填充整个画布
       leftCtx.drawImage(leftImage, 0, 0, leftCanvas.width, leftCanvas.height);
     };
@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function() {
       rightCanvas.width = rightImage.width; // 根据加载的图片尺寸调整画布大小
       rightCanvas.height = rightImage.height;
       rightCtx.clearRect(0, 0, rightCanvas.width, rightCanvas.height);
-      rightCtx.fillStyle = "white"; // 设置为白色
+      rightCtx.fillStyle = "yellow"; // 设置为白色
       rightCtx.fillRect(0, 0, rightCanvas.width, rightCanvas.height); // 填充整个画布
       rightCtx.drawImage(rightImage, 0, 0, rightCanvas.width, rightCanvas.height);
     };

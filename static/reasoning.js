@@ -66,31 +66,30 @@ document.addEventListener("DOMContentLoaded", function() {
     var rightImage = new Image();
 
     leftImage.onload = function() {
-      leftCanvas.width = leftImage.width; // 根据加载的图片尺寸调整画布大小
-      leftCanvas.height = leftImage.height;
-      leftCtx.clearRect(0, 0, leftCanvas.width, leftCanvas.height);
-      leftCtx.fillStyle = "yellow"; // 设置为白色
-      leftCtx.fillRect(0, 0, leftCanvas.width, leftCanvas.height); // 填充整个画布
-      leftCtx.drawImage(leftImage, 0, 0, leftCanvas.width, leftCanvas.height);
+      setTimeout(function() {
+        leftCanvas.width = leftImage.width;
+        leftCanvas.height = leftImage.height;
+        leftCtx.clearRect(0, 0, leftCanvas.width, leftCanvas.height);
+        leftCtx.fillStyle = "yellow";
+        leftCtx.fillRect(0, 0, leftCanvas.width, leftCanvas.height);
+        leftCtx.drawImage(leftImage, 0, 0, leftCanvas.width, leftCanvas.height);
+      }, 100);
     };
 
     rightImage.onload = function() {
-      rightCanvas.width = rightImage.width; // 根据加载的图片尺寸调整画布大小
-      rightCanvas.height = rightImage.height;
-      rightCtx.clearRect(0, 0, rightCanvas.width, rightCanvas.height);
-      rightCtx.fillStyle = "yellow"; // 设置为白色
-      rightCtx.fillRect(0, 0, rightCanvas.width, rightCanvas.height); // 填充整个画布
-      rightCtx.drawImage(rightImage, 0, 0, rightCanvas.width, rightCanvas.height);
+      setTimeout(function() {
+        rightCanvas.width = rightImage.width;
+        rightCanvas.height = rightImage.height;
+        rightCtx.clearRect(0, 0, rightCanvas.width, rightCanvas.height);
+        rightCtx.fillStyle = "yellow";
+        rightCtx.fillRect(0, 0, rightCanvas.width, rightCanvas.height);
+        rightCtx.drawImage(rightImage, 0, 0, rightCanvas.width, rightCanvas.height);
+      }, 100);
     };
 
+    leftImage.src = "/static/dataset/" + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + leftImageIndex + ".png";
+    rightImage.src = "/static/dataset/" + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + rightImageIndex + ".png";
 
-    setTimeout(function() {
-      leftImage.src = "/static/dataset/" + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + leftImageIndex + ".png";
-    }, 100);
-
-    setTimeout(function() {
-      rightImage.src = "/static/dataset/" + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + rightImageIndex + ".png";
-    }, 100);
 
 
     // 获取对应节点的位置信息

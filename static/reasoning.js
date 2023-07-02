@@ -79,8 +79,14 @@ document.addEventListener("DOMContentLoaded", function() {
       rightCtx.drawImage(rightImage, 0, 0, rightCanvas.width, rightCanvas.height);
     };
 
-    leftImage.src = "/static/dataset/" + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + leftImageIndex + ".png";
-    rightImage.src = "/static/dataset/" + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + rightImageIndex + ".png";
+    setTimeout(function() {
+      leftImage.src = "/static/dataset/" + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + leftImageIndex + ".png";
+    }, 100);
+
+    setTimeout(function() {
+      rightImage.src = "/static/dataset/" + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + rightImageIndex + ".png";
+    }, 100);
+
 
     // 获取对应节点的位置信息
     var leftImagePosition = saved_grid_pose[leftImageIndex];
@@ -227,5 +233,4 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   randomlySelectSceneAndFloor();
-  updateCanvas();
 });

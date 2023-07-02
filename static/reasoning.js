@@ -90,17 +90,8 @@ document.addEventListener("DOMContentLoaded", function() {
     setTimeout(function() {
       loadImageToCanvas(rightImage, rightCtx, rightCanvas);
     }, 100);
-
-
-
-
-    setTimeout(function() {
-      leftImage.src = "/static/dataset/" + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + leftImageIndex + ".png";
-    }, 100);
-
-    setTimeout(function() {
-      rightImage.src = "/static/dataset/" + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + rightImageIndex + ".png";
-    }, 100);
+    leftImage.src = "/static/dataset/" + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + leftImageIndex + ".png";
+    rightImage.src = "/static/dataset/" + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + rightImageIndex + ".png";
 
 
     // 获取对应节点的位置信息

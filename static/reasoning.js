@@ -79,17 +79,11 @@ document.addEventListener("DOMContentLoaded", function() {
       };
     }
 
-    // 为左侧画布填充背景色，并在 0.1 秒后加载图片
     clearAndFillBackground(leftCtx, leftCanvas); // 清空并填充背景
-    setTimeout(function() {
-      loadImageToCanvas(leftImage, leftCtx, leftCanvas);
-    }, 100);
+    loadImageToCanvas(leftImage, leftCtx, leftCanvas);
 
-    // 为右侧画布填充背景色，并在 0.1 秒后加载图片
     clearAndFillBackground(rightCtx, rightCanvas); // 清空并填充背景
-    setTimeout(function() {
-      loadImageToCanvas(rightImage, rightCtx, rightCanvas);
-    }, 100);
+    loadImageToCanvas(rightImage, rightCtx, rightCanvas);
     leftImage.src = "https://spatialreasoning.s3.amazonaws.com/dataset/" + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + leftImageIndex + ".png";
     rightImage.src = "https://spatialreasoning.s3.amazonaws.com/dataset/" + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + rightImageIndex + ".png";
 

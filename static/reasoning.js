@@ -228,8 +228,6 @@ document.addEventListener("DOMContentLoaded", function() {
     var floorIndex = getRandomIndex(floorOption);
     floorSelect.selectedIndex = floorIndex;
     floor = floorIndex;
-
-    updateCanvas();
   }
 
   randomlySelectSceneAndFloor();

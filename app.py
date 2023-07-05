@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify
-import helper
+#import helper
 from pymongo import MongoClient
 import json
 import os
@@ -10,7 +10,7 @@ app = Flask(__name__, static_folder='static', static_url_path='/static')
 client = MongoClient(os.getenv('MONGODB_URI'))
 database = client['spatial_reasoning']
 collection = database['humanmap']
-helper.main()
+#helper.main()
 @app.route('/')
 def index():
     return render_template('index.html')

@@ -1,4 +1,8 @@
 document.addEventListener("DOMContentLoaded", function() {
+  var mode = 'Auto'; // 全局变量，用于切换数据集
+  var subfolderList = mode === 'Auto' ? subfolderList_Auto : subfolderList_Manually;
+  var floormap = mode === 'Auto' ? floormap_Auto : floormap_Manually;
+  var pointmap = mode === 'Auto' ? pointmap_Auto : pointmap_Manually;
   var leftCanvas = document.getElementById("leftCanvas");
   var rightCanvas = document.getElementById("rightCanvas");
   var leftCtx = leftCanvas.getContext("2d");
@@ -10,7 +14,6 @@ document.addEventListener("DOMContentLoaded", function() {
   var floor = 0;
   var displayedPairs = []; // 存储已经显示过的图像对
   var leftImageIndex, rightImageIndex; // 修正点
-  var subfolderList = mode === 'Auto' ? subfolderList_Auto : subfolderList_Manually;
 
   subfolderList.forEach(function(subfolder) {
     var option = document.createElement("option");
@@ -87,6 +90,52 @@ document.addEventListener("DOMContentLoaded", function() {
     loadImageToCanvas(rightImage, rightCtx, rightCanvas);
     leftImage.src = "https://spatialreasoning.s3.amazonaws.com/dataset/" + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + leftImageIndex + ".png";
     rightImage.src = "https://spatialreasoning.s3.amazonaws.com/dataset/" + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + rightImageIndex + ".png";
+    document.getElementById('toggleDataset').addEventListener('click', function() {
+      // Toggle mode
+      mode = mode === 'Auto' ? 'Manually' : 'Auto';
+
+      // Update subfolderList, floormap, and pointmap according to the new mode
+      subfolderList = mode === 'Auto' ? subfolderList_Auto : subfolderList_Manually;
+      floormap = mode === 'Auto' ? floormap_Auto : floormap_Manually;
+      pointmap = mode === 'Auto' ? pointmap_Auto : pointmap_Manually;
+      var button = document.getElementById('toggleDataset');
+      button.textContent = mode;
+
+
+      // Update the UI to reflect the change in dataset
+      updateUIForModeChange();
+    });
+    function updateUIForModeChange() {
+      // 保存当前选中的子文件夹和楼层
+      var currentSubfolder = subfolderSelect.options[subfolderSelect.selectedIndex].value;
+      var currentFloor = floorSelect.options[floorSelect.selectedIndex].value;
+
+      // 更新子文件夹列表
+      subfolderSelect.innerHTML = ''; // 清空选项
+      var newSubfolderList = mode === 'Auto' ? subfolderList_Auto : subfolderList_Manually;
+      newSubfolderList.forEach(function(subfolder) {
+        var option = document.createElement("option");
+        option.value = subfolder;
+        option.text = subfolder;
+        subfolderSelect.appendChild(option);
+        if(subfolder === currentSubfolder) {
+          option.selected = true; // 保持原来的子文件夹被选中
+        }
+      });
+
+      // 更新楼层选项
+      populateFloorOptions(scene); // 假设你有一个populateFloorOptions函数
+
+      // 恢复之前选中的楼层
+      floorSelect.value = currentFloor;
+
+      // 重置图片显示和画布
+      showImage1 = true;
+      showImage2 = showImage3 = false;
+      updateCanvas(); // 假设你有一个updateCanvas函数
+
+      // 可能还需要根据新模式更新其他UI元素
+    }
 
 
     // 获取对应节点的位置信息

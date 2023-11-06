@@ -43,6 +43,8 @@ document.addEventListener("DOMContentLoaded", function() {
     subfolderList = mode === 'Auto' ? subfolderList_Auto : subfolderList_Manually;
     floormap = mode === 'Auto' ? floormap_Auto : floormap_Manually;
     pointmap = mode === 'Auto' ? pointmap_Auto : pointmap_Manually;
+    button.textContent = mode;
+
 
     // Update the UI to reflect the change in dataset
     updateUIForModeChange();
@@ -286,8 +288,6 @@ document.addEventListener("DOMContentLoaded", function() {
   });
   function updateUIForModeChange() {
     // 更新子文件夹列表
-    var statusText = 'Current Mode：' + mode;
-    document.getElementById('statusIndicator').textContent = statusText;
     var subfolderSelect = document.getElementById("subfolderSelect");
     subfolderSelect.innerHTML = ''; // 清空选项
     var newSubfolderList = mode === 'Auto' ? subfolderList_Auto : subfolderList_Manually;

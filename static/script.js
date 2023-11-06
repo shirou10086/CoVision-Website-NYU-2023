@@ -288,9 +288,11 @@ document.addEventListener("DOMContentLoaded", function() {
     updateCanvas();
   });
   function updateUIForModeChange() {
+    // 保存当前选中的子文件夹和楼层
+    var currentSubfolder = subfolderSelect.options[subfolderSelect.selectedIndex].value;
+    var currentFloor = floorSelect.options[floorSelect.selectedIndex].value;
 
     // 更新子文件夹列表
-    subfolderSelect = document.getElementById("subfolderSelect");
     subfolderSelect.innerHTML = ''; // 清空选项
     var newSubfolderList = mode === 'Auto' ? subfolderList_Auto : subfolderList_Manually;
     newSubfolderList.forEach(function(subfolder) {
@@ -298,10 +300,16 @@ document.addEventListener("DOMContentLoaded", function() {
       option.value = subfolder;
       option.text = subfolder;
       subfolderSelect.appendChild(option);
+      if(subfolder === currentSubfolder) {
+        option.selected = true; // 保持原来的子文件夹被选中
+      }
     });
 
     // 更新楼层选项
     populateFloorOptions(scene); // 假设你有一个populateFloorOptions函数
+
+    // 恢复之前选中的楼层
+    floorSelect.value = currentFloor;
 
     // 重置图片显示和画布
     showImage1 = showImage2 = showImage3 = false;

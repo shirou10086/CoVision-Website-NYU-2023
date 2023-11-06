@@ -287,8 +287,9 @@ document.addEventListener("DOMContentLoaded", function() {
     updateCanvas();
   });
   function updateUIForModeChange() {
+
     // 更新子文件夹列表
-    var subfolderSelect = document.getElementById("subfolderSelect");
+    subfolderSelect = document.getElementById("subfolderSelect");
     subfolderSelect.innerHTML = ''; // 清空选项
     var newSubfolderList = mode === 'Auto' ? subfolderList_Auto : subfolderList_Manually;
     newSubfolderList.forEach(function(subfolder) {

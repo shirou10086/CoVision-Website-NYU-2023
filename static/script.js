@@ -312,7 +312,8 @@ document.addEventListener("DOMContentLoaded", function() {
     floorSelect.value = currentFloor;
 
     // 重置图片显示和画布
-    showImage1 = showImage2 = showImage3 = false;
+    showImage1 = true;
+    showImage2 = showImage3 = false;
     updateCanvas(); // 假设你有一个updateCanvas函数
 
     // 可能还需要根据新模式更新其他UI元素

@@ -1,4 +1,8 @@
 document.addEventListener("DOMContentLoaded", function() {
+  var mode = 'auto'; // 全局变量，用于切换数据集
+  var subfolderList = mode === 'auto' ? subfolderList_auto : subfolderList_manually;
+  var floormap = mode === 'auto' ? floormap_auto : floormap_manually;
+  var pointmap = mode === 'auto' ? pointmap_auto : pointmap_manually;
   var saved_grid_pose = [];
   var subfolderSelect = document.getElementById("subfolderSelect");
   var floorSelect = document.getElementById("floorSelect");
@@ -26,11 +30,24 @@ document.addEventListener("DOMContentLoaded", function() {
     scrolledPixels = window.pageYOffset || document.documentElement.scrollTop;
     requestAnimationFrame(updateCanvas);
   });
+  // Add a listener for the toggleDataset button to switch between 'auto' and 'manually'
+  document.getElementById('toggleDataset').addEventListener('click', function() {
+    // Toggle mode
+    mode = mode === 'auto' ? 'manually' : 'auto';
+
+    // Update subfolderList, floormap, and pointmap according to the new mode
+    subfolderList = mode === 'auto' ? subfolderList_auto : subfolderList_manually;
+    floormap = mode === 'auto' ? floormap_auto : floormap_manually;
+    pointmap = mode === 'auto' ? pointmap_auto : pointmap_manually;
+
+    // Update the UI to reflect the change in dataset
+    updateUIForModeChange();
+  });
 
   function populateFloorOptions(scene) {
     var selectedOption = subfolderSelect.options[subfolderSelect.selectedIndex];
     var folderName = selectedOption.text;
-    var floorOptions = floormap[folderName];
+    var floorOptions = mode === 'auto' ? floormap_auto[folderName] : floormap_manually[folderName];
     floorSelect.innerHTML = ''; // 清空楼层选项
 
     for (var i = 0; i <= floorOptions; i++) {
@@ -53,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var selectedOption = subfolderSelect.options[subfolderSelect.selectedIndex];
     var folderName = selectedOption.text;
 
-    var imageSrc = "https://spatialreasoning.s3.amazonaws.com/dataset/" + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + index + ".png";
+    var imageSrc = "https://spatialreasoning.s3.amazonaws.com/dataset/" + mode+'/'+folderName + "/" + floor.toString() + "/saved_obs/best_color_" + index + ".png";
 
     // 判断是更新image2还是image3
     if (nextCanvasToUpdate === 2) {
@@ -97,7 +114,7 @@ document.addEventListener("DOMContentLoaded", function() {
     floor =0;
     var selectedOption = subfolderSelect.options[subfolderSelect.selectedIndex];
     scene = selectedOption.text;
-    sceneName = "https://spatialreasoning.s3.amazonaws.com/dataset/" + selectedOption.text + "/";
+    sceneName = "https://spatialreasoning.s3.amazonaws.com/dataset/" +mode+'/'+ selectedOption.text + "/";
     console.log("Selected Text:", sceneName);
     if (pointmap[scene + ":" + floor.toString()] && pointmap[scene + ":" + floor.toString()].saved_grid_pose) {
       saved_grid_pose = pointmap[scene + ":" + floor.toString()].saved_grid_pose;
@@ -256,13 +273,34 @@ document.addEventListener("DOMContentLoaded", function() {
 
   subfolderSelect.addEventListener("change", function() {
     var selectedOption = subfolderSelect.options[subfolderSelect.selectedIndex];
-    sceneName = "https://spatialreasoning.s3.amazonaws.com/dataset/" + selectedOption.text + "/";
+    sceneName = "https://spatialreasoning.s3.amazonaws.com/dataset/" +mode+'/'+ selectedOption.text + "/";
     console.log("Selected Text:", sceneName);
     showImage1 = true;
     showImage2 = false;
     showImage3 = false;
     updateCanvas();
   });
+  function updateUIForModeChange() {
+    // 更新子文件夹列表
+    var subfolderSelect = document.getElementById("subfolderSelect");
+    subfolderSelect.innerHTML = ''; // 清空选项
+    var newSubfolderList = mode === 'auto' ? subfolderList_auto : subfolderList_manually;
+    newSubfolderList.forEach(function(subfolder) {
+      var option = document.createElement("option");
+      option.value = subfolder;
+      option.text = subfolder;
+      subfolderSelect.appendChild(option);
+    });
+
+    // 更新楼层选项
+    populateFloorOptions(scene); // 假设你有一个populateFloorOptions函数
+
+    // 重置图片显示和画布
+    showImage1 = showImage2 = showImage3 = false;
+    updateCanvas(); // 假设你有一个updateCanvas函数
+
+    // 可能还需要根据新模式更新其他UI元素
+  }
 
   // 调用更新画布内容的函数
   updateCanvas();

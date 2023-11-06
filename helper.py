@@ -24,21 +24,15 @@ def find_max_floor(scene_name):
     return 0
 
 
-def main():
-    scenes = get_folders_in_path(os.path.join('.', 'static', 'dataset'))
-
+def process_scenes(scenes,version):
+    #version represent auto or manually
     floormap = {}
+    pointmap = {}
     for scene in scenes:
         max_floor = find_max_floor(scene)
         floormap[scene] = max_floor
-
-    floor = 0
-    pointmap = {}
-    for scene in scenes:
-        max_floor = floormap[scene]
-
         for floor in range(max_floor + 1):
-            pathName = os.path.join('static', 'dataset', scene, str(floor), 'saved_obs')
+            pathName = os.path.join('static', 'dataset', version,scene, str(floor), 'saved_obs')
             saved_grid_pose = np.load(os.path.join(pathName, 'saved_grid_pose.npy'))
             rel_mat = np.load(os.path.join(pathName, 'rel_mat.npy'))
             filtered_rel_mat = {}
@@ -47,18 +41,29 @@ def main():
                 for j in range(i + 1, rel_mat.shape[0]):
                     if rel_mat[i][j] != 0.0:
                         filtered_rel_mat[f"{i}:{j}"] = rel_mat[i][j]
-                        filtered_rel_mat[f"{j}:{i}"] = rel_mat[i][j]
+                        filtered_rel_mat[f"{j}:{i}"] = rel_mat[j][i]
 
             pointmap[f"{scene}:{floor}"] = {
                 "saved_grid_pose": saved_grid_pose.tolist(),
                 "rel_mat": filtered_rel_mat
             }
+    return floormap, pointmap
+
+def main():
+    scenes_auto = get_folders_in_path(os.path.join('.', 'static', 'dataset', 'Auto'))
+    scenes_manually = get_folders_in_path(os.path.join('.', 'static', 'dataset', 'Manually'))
+
+    floormap_auto, pointmap_auto = process_scenes(scenes_auto,'Auto')
+    floormap_manually, pointmap_manually = process_scenes(scenes_manually,'Manually')
 
     with open('static/pointmap.js', 'w') as f:
-        f.write('var subfolderList = ' + str(scenes) + ';\n')
-        f.write('var floormap = ' + json.dumps(floormap) + ';\n')
-        f.write('var pointmap = ' + json.dumps(pointmap) + ';\n')
+        f.write('var subfolderList_auto = ' + json.dumps(scenes_auto) + ';\n')
+        f.write('var floormap_auto = ' + json.dumps(floormap_auto) + ';\n')
+        f.write('var pointmap_auto = ' + json.dumps(pointmap_auto) + ';\n')
 
+        f.write('var subfolderList_manually = ' + json.dumps(scenes_manually) + ';\n')
+        f.write('var floormap_manually = ' + json.dumps(floormap_manually) + ';\n')
+        f.write('var pointmap_manually = ' + json.dumps(pointmap_manually) + ';\n')
 
 if __name__ == '__main__':
     main()

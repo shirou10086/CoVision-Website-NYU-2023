@@ -1,7 +1,7 @@
 import os
-subfolderList = ['Adrian', 'Andover', 'Angiola', 'Avonia', 'Beach', 'Brevort', 'Colebrook', 'Cooperstown', 'Denmark', 'Edgemere', 'Greigsville', 'Hillsdale', 'Maryhill', 'Mifflintown', 'Quantico', 'Rosser', 'Seward', 'Sisters', 'Stanleyville', 'Woonsocket'];
+subfolderList = ['Anaheim', 'Applewold', 'Goffs', 'Mesic', 'Sanctuary', 'Silas'];
 # This file cleans up the entire database
-root_dir = '.\\static\\dataset'
+root_dir = '.\\static\\dataset\\Manually'
 
 # loop through all files under root
 for subdir, dirs, files in os.walk(root_dir, topdown=False):

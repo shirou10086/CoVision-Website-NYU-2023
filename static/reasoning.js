@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
   var floor = 0;
   var displayedPairs = []; // 存储已经显示过的图像对
   var leftImageIndex, rightImageIndex; // 修正点
+  var subfolderList = mode === 'Auto' ? subfolderList_Auto : subfolderList_Manually;
 
   subfolderList.forEach(function(subfolder) {
     var option = document.createElement("option");

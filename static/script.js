@@ -20,14 +20,14 @@ document.addEventListener("DOMContentLoaded", function() {
   statusIndicator.id = 'statusIndicator';
   document.body.appendChild(statusIndicator); // 或者附加到更具体的位置
 
-  subfolderList.forEach(function(subfolder) {
+  subfolderList.forEach(function(subfolder) {//add more scenes
     var option = document.createElement("option");
     option.value = subfolder;
     option.text = subfolder;
     subfolderSelect.appendChild(option);
   });
   var nextCanvasToUpdate = 2;
-  window.addEventListener("scroll", function() {
+  window.addEventListener("scroll", function() {// resize and scroll doesnt change the image
     scrolledPixels = window.pageYOffset || document.documentElement.scrollTop;
   });
   window.addEventListener("resize", function() {
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function() {
     updateUIForModeChange();
   });
 
-  function populateFloorOptions(scene) {
+  function populateFloorOptions(scene) {//populate the floor
     var selectedOption = subfolderSelect.options[subfolderSelect.selectedIndex];
     var folderName = selectedOption.text;
     var floorOptions = mode === 'Auto' ? floormap_Auto[folderName] : floormap_Manually[folderName];
@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function() {
       floorSelect.appendChild(option);
     }
   }
-  floorSelect.addEventListener("change", function() {
+  floorSelect.addEventListener("change", function() {//when floor selected
     var chosenFloor = floorSelect.options[floorSelect.selectedIndex].value;
     if (pointmap[scene + ":" + chosenFloor.toString()] && pointmap[scene + ":" + chosenFloor.toString()].saved_grid_pose) {
       saved_grid_pose = pointmap[scene + ":" + chosenFloor.toString()].saved_grid_pose;

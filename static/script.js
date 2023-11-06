@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
   var mode = 'Auto'; // 全局变量，用于切换数据集
-  var subfolderList = mode === 'Auto' ? subfolderList_Auto : subfolderList_Manually;
   var floormap = mode === 'Auto' ? floormap_Auto : floormap_Manually;
   var pointmap = mode === 'Auto' ? pointmap_Auto : pointmap_Manually;
   var saved_grid_pose = [];
@@ -20,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
   statusIndicator.id = 'statusIndicator';
   document.body.appendChild(statusIndicator); // 或者附加到更具体的位置
 
-  subfolderList_Auto.forEach(function(subfolder) {
+  subfolderList.forEach(function(subfolder) {
     var option = document.createElement("option");
     option.value = subfolder;
     option.text = subfolder;
@@ -40,7 +39,6 @@ document.addEventListener("DOMContentLoaded", function() {
     mode = mode === 'Auto' ? 'Manually' : 'Auto';
 
     // Update subfolderList, floormap, and pointmap according to the new mode
-    subfolderList = mode === 'Auto' ? subfolderList_Auto : subfolderList_Manually;
     floormap = mode === 'Auto' ? floormap_Auto : floormap_Manually;
     pointmap = mode === 'Auto' ? pointmap_Auto : pointmap_Manually;
     var button = document.getElementById('toggleDataset');
@@ -294,8 +292,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // 更新子文件夹列表
     subfolderSelect.innerHTML = ''; // 清空选项
-    var newSubfolderList = mode === 'Auto' ? subfolderList_Auto : subfolderList_Manually;
-    newSubfolderList.forEach(function(subfolder) {
+    SubfolderList.forEach(function(subfolder) {
       var option = document.createElement("option");
       option.value = subfolder;
       option.text = subfolder;

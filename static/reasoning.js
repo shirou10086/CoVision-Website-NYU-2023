@@ -88,8 +88,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     clearAndFillBackground(rightCtx, rightCanvas); // 清空并填充背景
     loadImageToCanvas(rightImage, rightCtx, rightCanvas);
-    leftImage.src = "https://spatialreasoning.s3.amazonaws.com/dataset/" + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + leftImageIndex + ".png";
-    rightImage.src = "https://spatialreasoning.s3.amazonaws.com/dataset/" + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + rightImageIndex + ".png";
+    leftImage.src = "https://spatialreasoning.s3.amazonaws.com/dataset/"+mode+'/' + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + leftImageIndex + ".png";
+    rightImage.src = "https://spatialreasoning.s3.amazonaws.com/dataset/"+mode+'/'  + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + rightImageIndex + ".png";
     document.getElementById('toggleDataset').addEventListener('click', function() {
       // Toggle mode
       mode = mode === 'Auto' ? 'Manually' : 'Auto';

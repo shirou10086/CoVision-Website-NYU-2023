@@ -1,4 +1,4 @@
-import os
+Autoimport os
 import numpy as np
 import json
 
@@ -25,7 +25,7 @@ def find_max_floor(scene_name):
 
 
 def process_scenes(scenes,version):
-    #version represent auto or manually
+    #version represent Auto or manually
     floormap = {}
     pointmap = {}
     for scene in scenes:
@@ -50,20 +50,20 @@ def process_scenes(scenes,version):
     return floormap, pointmap
 
 def main():
-    scenes_auto = get_folders_in_path(os.path.join('.', 'static', 'dataset', 'Auto'))
+    scenes_Auto = get_folders_in_path(os.path.join('.', 'static', 'dataset', 'Auto'))
     scenes_manually = get_folders_in_path(os.path.join('.', 'static', 'dataset', 'Manually'))
 
-    floormap_auto, pointmap_auto = process_scenes(scenes_auto,'Auto')
+    floormap_Auto, pointmap_Auto = process_scenes(scenes_Auto,'Auto')
     floormap_manually, pointmap_manually = process_scenes(scenes_manually,'Manually')
 
     with open('static/pointmap.js', 'w') as f:
-        f.write('var subfolderList_auto = ' + json.dumps(scenes_auto) + ';\n')
-        f.write('var floormap_auto = ' + json.dumps(floormap_auto) + ';\n')
-        f.write('var pointmap_auto = ' + json.dumps(pointmap_auto) + ';\n')
+        f.write('var subfolderList_Auto = ' + json.dumps(scenes_Auto) + ';\n')
+        f.write('var floormap_Auto = ' + json.dumps(floormap_Auto) + ';\n')
+        f.write('var pointmap_Auto = ' + json.dumps(pointmap_Auto) + ';\n')
 
-        f.write('var subfolderList_manually = ' + json.dumps(scenes_manually) + ';\n')
-        f.write('var floormap_manually = ' + json.dumps(floormap_manually) + ';\n')
-        f.write('var pointmap_manually = ' + json.dumps(pointmap_manually) + ';\n')
+        f.write('var subfolderList_Manually = ' + json.dumps(scenes_manually) + ';\n')
+        f.write('var floormap_Manually = ' + json.dumps(floormap_manually) + ';\n')
+        f.write('var pointmap_Manually = ' + json.dumps(pointmap_manually) + ';\n')
 
 if __name__ == '__main__':
     main()

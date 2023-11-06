@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", function() {
-  var mode = 'auto'; // 全局变量，用于切换数据集
-  var subfolderList = mode === 'auto' ? subfolderList_auto : subfolderList_manually;
-  var floormap = mode === 'auto' ? floormap_auto : floormap_manually;
-  var pointmap = mode === 'auto' ? pointmap_auto : pointmap_manually;
+  var mode = 'Auto'; // 全局变量，用于切换数据集
+  var subfolderList = mode === 'Auto' ? subfolderList_Auto : subfolderList_Manually;
+  var floormap = mode === 'Auto' ? floormap_Auto : floormap_Manually;
+  var pointmap = mode === 'Auto' ? pointmap_Auto : pointmap_Manually;
   var saved_grid_pose = [];
   var subfolderSelect = document.getElementById("subfolderSelect");
   var floorSelect = document.getElementById("floorSelect");
@@ -30,15 +30,15 @@ document.addEventListener("DOMContentLoaded", function() {
     scrolledPixels = window.pageYOffset || document.documentElement.scrollTop;
     requestAnimationFrame(updateCanvas);
   });
-  // Add a listener for the toggleDataset button to switch between 'auto' and 'manually'
+  // Add a listener for the toggleDataset button to switch between 'Auto' and 'Manually'
   document.getElementById('toggleDataset').addEventListener('click', function() {
     // Toggle mode
-    mode = mode === 'auto' ? 'manually' : 'auto';
+    mode = mode === 'Auto' ? 'Manually' : 'Auto';
 
     // Update subfolderList, floormap, and pointmap according to the new mode
-    subfolderList = mode === 'auto' ? subfolderList_auto : subfolderList_manually;
-    floormap = mode === 'auto' ? floormap_auto : floormap_manually;
-    pointmap = mode === 'auto' ? pointmap_auto : pointmap_manually;
+    subfolderList = mode === 'Auto' ? subfolderList_Auto : subfolderList_Manually;
+    floormap = mode === 'Auto' ? floormap_Auto : floormap_Manually;
+    pointmap = mode === 'Auto' ? pointmap_Auto : pointmap_Manually;
 
     // Update the UI to reflect the change in dataset
     updateUIForModeChange();
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function() {
   function populateFloorOptions(scene) {
     var selectedOption = subfolderSelect.options[subfolderSelect.selectedIndex];
     var folderName = selectedOption.text;
-    var floorOptions = mode === 'auto' ? floormap_auto[folderName] : floormap_manually[folderName];
+    var floorOptions = mode === 'Auto' ? floormap_Auto[folderName] : floormap_Manually[folderName];
     floorSelect.innerHTML = ''; // 清空楼层选项
 
     for (var i = 0; i <= floorOptions; i++) {
@@ -284,7 +284,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // 更新子文件夹列表
     var subfolderSelect = document.getElementById("subfolderSelect");
     subfolderSelect.innerHTML = ''; // 清空选项
-    var newSubfolderList = mode === 'auto' ? subfolderList_auto : subfolderList_manually;
+    var newSubfolderList = mode === 'Auto' ? subfolderList_Auto : subfolderList_Manually;
     newSubfolderList.forEach(function(subfolder) {
       var option = document.createElement("option");
       option.value = subfolder;

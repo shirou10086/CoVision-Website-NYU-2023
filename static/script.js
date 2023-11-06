@@ -16,6 +16,10 @@ document.addEventListener("DOMContentLoaded", function() {
   var nodeIndexOfImage3 = null;
   var floor = 0;
   var scrolledPixels=0;
+  var statusIndicator = document.createElement('div');
+  statusIndicator.id = 'statusIndicator';
+  document.body.appendChild(statusIndicator); // 或者附加到更具体的位置
+
   subfolderList.forEach(function(subfolder) {
     var option = document.createElement("option");
     option.value = subfolder;
@@ -282,6 +286,8 @@ document.addEventListener("DOMContentLoaded", function() {
   });
   function updateUIForModeChange() {
     // 更新子文件夹列表
+    var statusText = 'Current Mode：' + mode;
+    document.getElementById('statusIndicator').textContent = statusText;
     var subfolderSelect = document.getElementById("subfolderSelect");
     subfolderSelect.innerHTML = ''; // 清空选项
     var newSubfolderList = mode === 'Auto' ? subfolderList_Auto : subfolderList_Manually;

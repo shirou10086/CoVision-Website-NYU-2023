@@ -43,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function() {
     subfolderList = mode === 'Auto' ? subfolderList_Auto : subfolderList_Manually;
     floormap = mode === 'Auto' ? floormap_Auto : floormap_Manually;
     pointmap = mode === 'Auto' ? pointmap_Auto : pointmap_Manually;
+    var button = document.getElementById('toggleDataset');
     button.textContent = mode;
 
 

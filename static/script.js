@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function() {
   statusIndicator.id = 'statusIndicator';
   document.body.appendChild(statusIndicator); // 或者附加到更具体的位置
 
-  subfolderList.forEach(function(subfolder) {
+  subfolderList_Auto.forEach(function(subfolder) {
     var option = document.createElement("option");
     option.value = subfolder;
     option.text = subfolder;

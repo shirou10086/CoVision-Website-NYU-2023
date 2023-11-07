@@ -44,7 +44,6 @@ document.addEventListener("DOMContentLoaded", function() {
     subfolderList = mode === 'Auto' ? subfolderList_Auto : subfolderList_Manually;
     floormap = mode === 'Auto' ? floormap_Auto : floormap_Manually;
     pointmap = mode === 'Auto' ? pointmap_Auto : pointmap_Manually;
-    groundtruth = mode === 'Auto' ? groundtruth_Auto : groundtruth_Manually;
     var button = document.getElementById('toggleDataset');
     button.textContent = mode;
 
@@ -144,12 +143,13 @@ document.addEventListener("DOMContentLoaded", function() {
   var leftCanvas = document.getElementById('leftCanvas');
   var leftCtx = leftCanvas.getContext('2d');
   function drawPointsOnCanvas(canvas, points, groundtruthConnectionMap, changerate, drawX, drawY) {
+    var connectionMap = createConnectionMap(groundtruth);
     var context = canvas.getContext("2d");
     var radius = 5;
     var positions = [];
 
     var container = canvas.parentNode; // 获取画布的容器元素
-    Object.keys(groundtruthConnectionMap).forEach(connection => {
+    for (var connection in rel_mat) {
       var [startNode, endNode] = connection.split(":").map(Number);
       var startX = points[startNode][0] * changerate + drawX;
       var startY = points[startNode][1] * changerate + drawY;
@@ -261,10 +261,7 @@ document.addEventListener("DOMContentLoaded", function() {
         leftCanvas.height = boxWidth;
 
         leftCtx.drawImage(image1, drawX, drawY, drawWidth, drawHeight);
-        groundtruth = mode === 'Auto' ? groundtruth_Auto : groundtruth_Manually;
-        var connectionMap = createConnectionMap(groundtruth);
-
-        var positions = drawPointsOnCanvas(leftCanvas, saved_grid_pose, connectionMap, changerate, drawX, drawY);
+        var positions = drawPointsOnCanvas(leftCanvas, saved_grid_pose, pointmap[scene + ":" + floor.toString()].rel_mat, changerate, drawX, drawY);
 
         console.log("Image 1 loaded successfully!");
 

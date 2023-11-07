@@ -199,7 +199,7 @@ document.addEventListener("DOMContentLoaded", function() {
       });
       container.appendChild(button);
     }
-
+/*
     // 绘制humanmap中的关联线
     fetch('/draw_from_mongodb?scene=' + scene + '&floor=' + floor)
       .then(response => response.json())
@@ -218,7 +218,7 @@ document.addEventListener("DOMContentLoaded", function() {
           context.lineTo(endX, endY);
           context.stroke();
         }
-      });
+      });*/
     return positions;
   }
 

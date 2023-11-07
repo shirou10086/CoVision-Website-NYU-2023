@@ -1,4 +1,4 @@
-Autoimport os
+import os
 import numpy as np
 import json
 
@@ -13,7 +13,7 @@ def get_folders_in_path(path):
 
 
 def find_max_floor(scene_name):
-    scene_folder_path = os.path.join('static', 'dataset', scene_name)
+    scene_folder_path = os.path.join('static', 'dataset','Auto', scene_name)#这里需要按照dataset格式改
     if os.path.exists(scene_folder_path):
         subfolders = [
             name for name in os.listdir(scene_folder_path)

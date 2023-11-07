@@ -103,15 +103,17 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // 检查图像2和图像3的节点之间是否存在连接
-    if (nodeIndexOfImage2 !== null && nodeIndexOfImage3 !== null) {
-      console.log("nodeIndexOfImage2:", nodeIndexOfImage2);
-      console.log("nodeIndexOfImage3:", nodeIndexOfImage3);
-      var connectionKey1 = `${nodeIndexOfImage2}:${nodeIndexOfImage3}`;
-      var rel_mat = pointmap[folderName + ":" + floor.toString()].rel_mat;
-      if (rel_mat[connectionKey1]) {
-        alert(`Node ${nodeIndexOfImage2} and Node ${nodeIndexOfImage3} are connected!`);
-      }
-    }
+    var isConnected = groundtruth_Manually.some(entry => {
+      return entry.scene === folderName &&
+             entry.floor === floor &&
+             ((entry.image1 === nodeIndexOfImage2 && entry.image2 === nodeIndexOfImage3) ||
+              (entry.image1 === nodeIndexOfImage3 && entry.image2 === nodeIndexOfImage2)) &&
+             entry.label === 1; // 根据你的系统，这里假设label为1表示连接
+    });
+
+    if (isConnected) {
+      alert(`Node ${nodeIndexOfImage2} and Node ${nodeIndexOfImage3} are connected!`);
+    } 
 
     // 切换下一个要更新的画布
     nextCanvasToUpdate = (nextCanvasToUpdate === 2) ? 3 : 2;

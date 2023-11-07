@@ -142,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function() {
   // 获取画布对象和上下文
   var leftCanvas = document.getElementById('leftCanvas');
   var leftCtx = leftCanvas.getContext('2d');
-  function drawPointsOnCanvas(canvas, points, groundtruthConnectionMap, changerate, drawX, drawY) {
+  function drawPointsOnCanvas(canvas, points, rel_mat, changerate, drawX, drawY) {
     var connectionMap = createConnectionMap(groundtruth);
     var context = canvas.getContext("2d");
     var radius = 5;

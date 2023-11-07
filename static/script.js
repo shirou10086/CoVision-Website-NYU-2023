@@ -53,6 +53,17 @@ document.addEventListener("DOMContentLoaded", function() {
     updateUIForModeChange();
   });
 
+  function createConnectionMapFromJson(groundtruth, scene, floor) {
+    var connectionMap = {};
+    groundtruth.forEach(entry => {
+      if (entry.scene === scene && entry.floor === floor && entry.label === 1) {
+        var key = `${entry.image1}:${entry.image2}`;
+        connectionMap[key] = true;
+      }
+    });
+    return connectionMap;
+  }
+
   function populateFloorOptions(scene) {//populate the floor
     var selectedOption = subfolderSelect.options[subfolderSelect.selectedIndex];
     var folderName = selectedOption.text;
@@ -145,12 +156,13 @@ document.addEventListener("DOMContentLoaded", function() {
   var leftCtx = leftCanvas.getContext('2d');
 
   //绘制点和点的连接
-  function drawPointsOnCanvas(canvas, points, rel_mat, changerate, drawX, drawY) {
+  function drawPointsOnCanvas(canvas, points, groundtruth, changerate, drawX, drawY) {
     var context = canvas.getContext("2d");
-    var radius = 5;
-    var positions = [];
-
+    var radius = 5; // 假设这个是点的半径，尽管在代码中没有用到
+    var rel_mat = createConnectionMapFromJson(groundtruth, scene, floor);
     var container = canvas.parentNode; // 获取画布的容器元素
+
+    // 现在rel_mat包含了具有label为1的连接
     for (var connection in rel_mat) {
       var [startNode, endNode] = connection.split(":").map(Number);
       var startX = points[startNode][0] * changerate + drawX;
@@ -158,6 +170,7 @@ document.addEventListener("DOMContentLoaded", function() {
       var endX = points[endNode][0] * changerate + drawX;
       var endY = points[endNode][1] * changerate + drawY;
 
+      // 画线
       context.beginPath();
       context.moveTo(startX, startY);
       context.strokeStyle = "blue";
@@ -263,7 +276,7 @@ document.addEventListener("DOMContentLoaded", function() {
         leftCanvas.height = boxWidth;
 
         leftCtx.drawImage(image1, drawX, drawY, drawWidth, drawHeight);
-        var positions = drawPointsOnCanvas(leftCanvas, saved_grid_pose, pointmap[scene + ":" + floor.toString()].rel_mat, changerate, drawX, drawY);
+        var positions = drawPointsOnCanvas(leftCanvas, saved_grid_pose, groundtruth, changerate, drawX, drawY);
 
         console.log("Image 1 loaded successfully!");
 

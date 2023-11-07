@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
   var subfolderList = mode === 'Auto' ? subfolderList_Auto : subfolderList_Manually;
   var floormap = mode === 'Auto' ? floormap_Auto : floormap_Manually;
   var pointmap = mode === 'Auto' ? pointmap_Auto : pointmap_Manually;
+  var groundtruth = mode === 'Auto' ? groundtruth_Auto : groundtruth_Manually;
   var saved_grid_pose = [];
   var subfolderSelect = document.getElementById("subfolderSelect");
   var floorSelect = document.getElementById("floorSelect");
@@ -43,6 +44,7 @@ document.addEventListener("DOMContentLoaded", function() {
     subfolderList = mode === 'Auto' ? subfolderList_Auto : subfolderList_Manually;
     floormap = mode === 'Auto' ? floormap_Auto : floormap_Manually;
     pointmap = mode === 'Auto' ? pointmap_Auto : pointmap_Manually;
+    groundtruth = mode === 'Auto' ? groundtruth_Auto : groundtruth_Manually;
     var button = document.getElementById('toggleDataset');
     button.textContent = mode;
 
@@ -103,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // 检查图像2和图像3的节点之间是否存在连接
-    var groundtruth = mode === 'Auto' ? groundtruth_Auto : groundtruth_Manually;
+    groundtruth = mode === 'Auto' ? groundtruth_Auto : groundtruth_Manually;
 
     var isConnected = groundtruth.some(entry => {
       return entry.scene === folderName &&
@@ -141,13 +143,13 @@ document.addEventListener("DOMContentLoaded", function() {
   // 获取画布对象和上下文
   var leftCanvas = document.getElementById('leftCanvas');
   var leftCtx = leftCanvas.getContext('2d');
-  function drawPointsOnCanvas(canvas, points, rel_mat, changerate, drawX, drawY) {
+  function drawPointsOnCanvas(canvas, points, groundtruthConnectionMap, changerate, drawX, drawY) {
     var context = canvas.getContext("2d");
     var radius = 5;
     var positions = [];
 
     var container = canvas.parentNode; // 获取画布的容器元素
-    for (var connection in rel_mat) {
+    Object.keys(groundtruthConnectionMap).forEach(connection => {
       var [startNode, endNode] = connection.split(":").map(Number);
       var startX = points[startNode][0] * changerate + drawX;
       var startY = points[startNode][1] * changerate + drawY;
@@ -182,6 +184,7 @@ document.addEventListener("DOMContentLoaded", function() {
       });
       container.appendChild(button);
     }
+
     // 绘制humanmap中的关联线
     fetch('/draw_from_mongodb?scene=' + scene + '&floor=' + floor)
       .then(response => response.json())
@@ -258,7 +261,10 @@ document.addEventListener("DOMContentLoaded", function() {
         leftCanvas.height = boxWidth;
 
         leftCtx.drawImage(image1, drawX, drawY, drawWidth, drawHeight);
-        var positions = drawPointsOnCanvas(leftCanvas, saved_grid_pose, pointmap[scene + ":" + floor.toString()].rel_mat, changerate, drawX, drawY);
+        groundtruth = mode === 'Auto' ? groundtruth_Auto : groundtruth_Manually;
+        var connectionMap = createConnectionMap(groundtruth);
+
+        var positions = drawPointsOnCanvas(leftCanvas, saved_grid_pose, connectionMap, changerate, drawX, drawY);
 
         console.log("Image 1 loaded successfully!");
 

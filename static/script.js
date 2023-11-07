@@ -142,14 +142,15 @@ document.addEventListener("DOMContentLoaded", function() {
   // 获取画布对象和上下文
   var leftCanvas = document.getElementById('leftCanvas');
   var leftCtx = leftCanvas.getContext('2d');
-  function drawPointsOnCanvas(canvas, points, rel_mat, changerate, drawX, drawY) {
+  function drawPointsOnCanvas(canvas, points, groundtruth, changerate, drawX, drawY) {
+    // 使用 groundtruth 来创建连接映射
     var connectionMap = createConnectionMap(groundtruth);
-    var context = canvas.getContext("2d");
-    var radius = 5;
-    var positions = [];
 
-    var container = canvas.parentNode; // 获取画布的容器元素
-    for (var connection in rel_mat) {
+    var context = canvas.getContext("2d");
+    var radius = 5; // 这里的半径不影响线的绘制，只影响点的大小，如果你也要绘制点。
+
+    // 绘制连接
+    for (var connection in connectionMap) {
       var [startNode, endNode] = connection.split(":").map(Number);
       var startX = points[startNode][0] * changerate + drawX;
       var startY = points[startNode][1] * changerate + drawY;
@@ -158,7 +159,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
       context.beginPath();
       context.moveTo(startX, startY);
-      context.strokeStyle = "blue";
+      context.strokeStyle = "blue"; // 你可以根据你的需要更改线条的颜色
       context.lineTo(endX, endY);
       context.stroke();
     }
@@ -261,7 +262,8 @@ document.addEventListener("DOMContentLoaded", function() {
         leftCanvas.height = boxWidth;
 
         leftCtx.drawImage(image1, drawX, drawY, drawWidth, drawHeight);
-        var positions = drawPointsOnCanvas(leftCanvas, saved_grid_pose, pointmap[scene + ":" + floor.toString()].rel_mat, changerate, drawX, drawY);
+        var positions = drawPointsOnCanvas(leftCanvas, saved_grid_pose, groundtruth, changerate, drawX, drawY);
+
 
         console.log("Image 1 loaded successfully!");
 

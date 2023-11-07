@@ -219,7 +219,7 @@ document.addEventListener("DOMContentLoaded", function() {
           context.stroke();
         }
       });*/
-    return positions;
+    return positions;//update
   }
 
 

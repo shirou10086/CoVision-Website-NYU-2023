@@ -1,8 +1,8 @@
 import csv
 
 # Define the input and output CSV file names
-input_csv_file = 'Manually_merged_GroundTruth.csv'
-output_csv_file = 'Manually_output.csv'
+input_csv_file = 'merged_GroundTruth.csv'
+output_csv_file = 'Auto_output.csv'
 
 # Open the input CSV file and read its contents
 with open(input_csv_file, mode='r', newline='', encoding='utf-8') as infile:

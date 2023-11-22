@@ -140,22 +140,6 @@
     <p>
         The annotation process involves both automatic and human methods. Automatic annotation uses a camera placement strategy and a progressive candidate selection method. Camera locations are chosen near walls or furniture, emulating real-world photography habits, and images are selected based on a scoring method that balances scene coverage and overlap. Human annotation involves trained annotators using a custom GUI to label image pairs based on shared objects, object continuity, sub-scene relationships, and featureless surfaces. This process includes cross-validation to ensure accuracy and robustness. Both the automatically and manually labeled datasets will be released for future research.
     </p>
-    <div style="display: flex; justify-content: center;">
-      <img src="static/pipeline.png" alt="Dataset generation Pipeline" width="800" height="500">
-    </div>
-
-    <h4>3. Confidence Score:</h4>
-    <p>It calculates a confidence score for a candidate location within an environment, guiding a genetic algorithm-based navigation strategy. The score reflects the potential informativeness of moving to the candidate location, factoring in the expected observations and their overlap with existing maps, considering the relative positions of the candidate with saved poses. This score helps the algorithm to determine the next best location to explore based on current knowledge, ultimately returning the highest confidence candidate pose and its related elements.</p>
-
-    <h4>4. Contributions:</h4>
-    <p>The project contributions are threefold:</p>
-
-      <p>     a.The construction of a reason dataset, which serves as the foundation for this research.</p>
-
-      <p>     b.A comprehensive analysis of multiple baselines on both synthetic and real data sets. This comparative study would provide a clear understanding of the strengths and weaknesses of each method.</p>
-
-      <p>     c.A simple yet innovative method to address the problem of long baseline spatial reasoning for RGB image matching. The novelty lies in the way spatial relations are inferred between distantly related images, contributing significantly to the field of image processing and computer vision.</p>
-
     <h4>5. Pipeline:</h4>
     <div style="display: flex; justify-content: center;">
       <img src="static/pipeline2.png" alt="Overall Pipeline" width="800" height="450">

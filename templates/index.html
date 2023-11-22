@@ -99,12 +99,20 @@
 
   <!-- 自定义主页内容 -->
   <div class="container">
-    <h2>Project Overview:</h2>
-    <p>The proposed project aims to address a key problem in spatial reasoning: long baseline matching of perspective RGB images with minimal overlap. Our goal is to infer spatial connections between two distantly related RGB images that partially overlap and to establish a corridor from one image to another. The challenge can be framed as a binary classification problem, determining whether two images are spatially accessible to each other.</p>
+    <h2>Abstract:</h2>
+    <p>Humans possess amazing spatial reasoning abilities to analyze the co-visibility, i.e., the sharing of field-of-view, of a few images that are sparsely distributed in a complex scene. The large difference and the partial observability in those sparse views pose significant challenges to existing 3D vision techniques for pairwise image- or feature-matching. A more holistic reasoning approach that jointly analyzes the whole set of images is needed to solve this problem, which is of great importance in 3D vision, embodied intelligence, and robotics. Thus, we propose the Co-Visibility reasONing (Co-VisiON) task and curate an open-source dataset to facilitate the study of this problem. We develop a method to automatically sample sparse image sets and their co-visibilities from photorealistic indoor simulation environments, allowing us to quickly generate a large-scale dataset. We also manually annotate co-visibilities on the generated sets for comparisons. We benchmark various baselines on this dataset, including feature matching, visual place recognition (VPR), supervised or contrastive learning, and Large Vision Language Models (VLMs), among others. Their unsatisfactory performance highlights the challenges and calls for more studies in the community.</p>
 
-    <h4>1. Methods:</h4>
-    <p>We will apply and compare several supervised and unsupervised learning algorithms, such as VGG16, ViT_B16_224, and SuperGlue, alongside non-learning methods like RANSAC/SIFT and Color Histogram for benchmarking purposes. The paper "Predicate Correlation Learning for Scene Graph Generation" will also be reviewed for insights into correlation learning in scene graphs.</p>
-
+    <h4>1. Task Definition:</h4>
+    <p>
+        The task involves constructing a co-visibility graph <em>G</em> from a sparse set of images
+        <em>I = {I<sub>1</sub>, I<sub>2</sub>, ..., I<sub>n</sub>}</em> representing different views of a scene, such as a house.
+        In this graph, images act as nodes. An edge connects two nodes if their corresponding images have co-visibility.
+        For each pair of images <em>(I<sub>i</sub>, I<sub>j</sub>)</em>, an algorithm outputs a value <em>d<sub>ij</sub></em>
+        indicating the degree of co-visibility. If <em>d<sub>ij</sub> > τ</em>, where τ is a predefined threshold,
+        the images are considered to have overlapping views and are connected in the graph.
+        The adjacency matrix <em>A</em> of the graph is then constructed, with each entry <em>a<sub>ij</sub></em>
+        indicating the presence of co-visible areas between <em>I<sub>i</sub></em> and <em>I<sub>j</sub></em>.
+    </p>
     <h4>2. Dataset Processing:</h4>
     <p>we propose to generate a matrix/map (0 = unexplored; 1 = explored/invalid) for each floor in a given scene. The height will determine the floor, while the number of floors will be known from the metadata. The procedure for the exploration and mapping of a scene includes several steps, beginning with random target sampling, new camera poses within a radius of the target, and coverage calculations. The process repeats until more than a certain percentage of the area is explored or the process is deemed "stuck", meaning it can no longer find unexplored regions. In such cases, a random unexplored region within the floor will be selected as the target.</p>
     <div style="display: flex; justify-content: center;">

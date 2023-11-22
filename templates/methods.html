@@ -109,25 +109,26 @@
 
   <!-- 自定义主页内容 -->
   <div class="container">
-    <h2>Methods</h2>
-    <div class="text-image">
-      <div>
-        <p>CSR</p>
-        <p>Local features/objects might give rich insight</p>
-        <p>ViT</p>
-        <p>We think that the attention mechanism could be important for the nature of the problem (context)</p>
-        <p>VGG/CNN</p>
-        <p>Instinctive first choice for supervised learning</p>
-        <p>SuperGlue</p>
-        <p>A step up from traditional feature matching; unsupervised</p>
-        <p>RANSAC</p>
-        <p>Instinctive first choice for baseline matching</p>
-        <p>NetVLAD</p>
-        <p>Many people will compare the problem to VPR</p>
+      <h2>Methods</h2>
+      <!-- Top Image with Description -->
+      <div class="top-image">
+          <p>This is the AUC result based on 8 different Baseline methods.</p>
+          <img src="static/aucset.png" alt="AUC Set" style="width: 100%;">
       </div>
-      <img src="static/baseline.png" alt="Baseline methods" style="transform: scale(1.5);">
-    </div>
+      <!-- Bottom Images with Descriptions -->
+      <div class="bottom-images">
+          <div class="left-image">
+              <p>AUC Auto - Detailed Table</p>
+              <img src="auc-auto.png" alt="AUC Auto" style="width: 49%; float: left; margin-right: 2%;">
+          </div>
+          <div class="right-image">
+              <p>AUC Manual - Detailed Table</p>
+              <img src="auc-manual.png" alt="AUC Manual" style="width: 49%; float: left;">
+          </div>
+          <div style="clear: both;"></div>
+      </div>
   </div>
+
 
   <!-- 添加所需的JavaScript文件 -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

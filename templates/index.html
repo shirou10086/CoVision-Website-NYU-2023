@@ -101,7 +101,9 @@
   <div class="container">
     <h2>Abstract:</h2>
     <p>Humans possess amazing spatial reasoning abilities to analyze the co-visibility, i.e., the sharing of field-of-view, of a few images that are sparsely distributed in a complex scene. The large difference and the partial observability in those sparse views pose significant challenges to existing 3D vision techniques for pairwise image- or feature-matching. A more holistic reasoning approach that jointly analyzes the whole set of images is needed to solve this problem, which is of great importance in 3D vision, embodied intelligence, and robotics. Thus, we propose the Co-Visibility reasONing (Co-VisiON) task and curate an open-source dataset to facilitate the study of this problem. We develop a method to automatically sample sparse image sets and their co-visibilities from photorealistic indoor simulation environments, allowing us to quickly generate a large-scale dataset. We also manually annotate co-visibilities on the generated sets for comparisons. We benchmark various baselines on this dataset, including feature matching, visual place recognition (VPR), supervised or contrastive learning, and Large Vision Language Models (VLMs), among others. Their unsatisfactory performance highlights the challenges and calls for more studies in the community.</p>
-
+    <div style="display: flex; justify-content: center;">
+      <img src="static/figure1_teaser.png" alt="Overall Pipeline" width="800" height="450">
+    </div>
     <h4>1. Task Definition:</h4>
     <p>
         The task involves constructing a co-visibility graph <em>G</em> from a sparse set of images
@@ -140,10 +142,10 @@
     <p>
         The annotation process involves both automatic and human methods. Automatic annotation uses a camera placement strategy and a progressive candidate selection method. Camera locations are chosen near walls or furniture, emulating real-world photography habits, and images are selected based on a scoring method that balances scene coverage and overlap. Human annotation involves trained annotators using a custom GUI to label image pairs based on shared objects, object continuity, sub-scene relationships, and featureless surfaces. This process includes cross-validation to ensure accuracy and robustness. Both the automatically and manually labeled datasets will be released for future research.
     </p>
-    <h4>5. Pipeline:</h4>
     <div style="display: flex; justify-content: center;">
       <img src="static/pipeline2.png" alt="Overall Pipeline" width="800" height="450">
     </div>
+
   </div>
 
   <!-- 添加所需的JavaScript文件 -->

@@ -131,8 +131,15 @@
             <strong>In-context Learning with a Large Language Model:</strong> Designs an in-context learning baseline using GPT-4. Image descriptions are generated using a pretrained vision language model, and GPT-4 is used to summarize the context and predict co-visibility scores. The scores are normalized for thresholding and evaluation.
         </li>
     </ul>
-    <h4>2. Dataset Processing:</h4>
-    <p>we propose to generate a matrix/map (0 = unexplored; 1 = explored/invalid) for each floor in a given scene. The height will determine the floor, while the number of floors will be known from the metadata. The procedure for the exploration and mapping of a scene includes several steps, beginning with random target sampling, new camera poses within a radius of the target, and coverage calculations. The process repeats until more than a certain percentage of the area is explored or the process is deemed "stuck", meaning it can no longer find unexplored regions. In such cases, a random unexplored region within the floor will be selected as the target.</p>
+    <h4>3. Dataset Collection:</h4>
+    <p>
+        The dataset for the co-visibility graph task is generated using the Habitat-sim platform, sampling scenes from the Gibson dataset which includes 3D models of various indoor environments. Images are captured at specific positions and orientations to maximize unseen area coverage while minimizing the total image count. The dataset comprises an average of 14 images per scenario across 86 different scenes, totaling 130 floors.
+    </p>
+
+    <h4>4. Co-Visibility Graph Annotation:</h4>
+    <p>
+        The annotation process involves both automatic and human methods. Automatic annotation uses a camera placement strategy and a progressive candidate selection method. Camera locations are chosen near walls or furniture, emulating real-world photography habits, and images are selected based on a scoring method that balances scene coverage and overlap. Human annotation involves trained annotators using a custom GUI to label image pairs based on shared objects, object continuity, sub-scene relationships, and featureless surfaces. This process includes cross-validation to ensure accuracy and robustness. Both the automatically and manually labeled datasets will be released for future research.
+    </p>
     <div style="display: flex; justify-content: center;">
       <img src="static/pipeline.png" alt="Dataset generation Pipeline" width="800" height="500">
     </div>

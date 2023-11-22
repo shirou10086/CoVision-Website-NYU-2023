@@ -113,6 +113,24 @@
         The adjacency matrix <em>A</em> of the graph is then constructed, with each entry <em>a<sub>ij</sub></em>
         indicating the presence of co-visible areas between <em>I<sub>i</sub></em> and <em>I<sub>j</sub></em>.
     </p>
+    <h4>2. Baseline Methods:</h4>
+    <ul>
+        <li>
+            <strong>Supervised Classification:</strong> Utilizes classic image classification methods like ViT, VGG, and ResNet. These models extract image representations and use a classification head to predict the likelihood of image pairs being connected in the co-visibility graph. The models are fine-tuned with annotated data, and IOU scores are computed for various threshold values to calculate the AUC.
+        </li>
+        <li>
+            <strong>Visual Place Recognition (VPR):</strong> Employs NetVLAD as the VPR baseline. This approach is similar to supervised classification, with a classification head predicting the probability of a view connection.
+        </li>
+        <li>
+            <strong>Image Feature Matching:</strong> Uses SuperGlue with pretrained weights for image feature matching. Additionally, a SIFT+RANSAC method is employed as a traditional matching baseline. Thresholds are set based on the maximum matches detected.
+        </li>
+        <li>
+            <strong>Contrastive Learning Method:</strong> Adapts the SimCLR model, coupled with the InfoNCE loss, for this task. Image pairs connected in the ground truth co-visibility graph are treated as positive instances. ResNet is used as the backbone, and pairwise Euclidean distances are recorded for thresholding and evaluation.
+        </li>
+        <li>
+            <strong>In-context Learning with a Large Language Model:</strong> Designs an in-context learning baseline using GPT-4. Image descriptions are generated using a pretrained vision language model, and GPT-4 is used to summarize the context and predict co-visibility scores. The scores are normalized for thresholding and evaluation.
+        </li>
+    </ul>
     <h4>2. Dataset Processing:</h4>
     <p>we propose to generate a matrix/map (0 = unexplored; 1 = explored/invalid) for each floor in a given scene. The height will determine the floor, while the number of floors will be known from the metadata. The procedure for the exploration and mapping of a scene includes several steps, beginning with random target sampling, new camera poses within a radius of the target, and coverage calculations. The process repeats until more than a certain percentage of the area is explored or the process is deemed "stuck", meaning it can no longer find unexplored regions. In such cases, a random unexplored region within the floor will be selected as the target.</p>
     <div style="display: flex; justify-content: center;">

@@ -358,5 +358,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   // 调用更新画布内容的函数
+  statusIndicator.textContent = '您的状态消息';
+  statusIndicator.style.display = 'block'; // 确保状态指示器是可见的
   updateCanvas();
 });

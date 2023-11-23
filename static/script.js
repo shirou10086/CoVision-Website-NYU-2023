@@ -3,17 +3,15 @@ document.addEventListener("DOMContentLoaded", function() {
   statusIndicator.id = 'statusIndicator';
 
   // 应用样式
-  statusIndicator.style.padding = '20px'; // 增加内边距
+  statusIndicator.style.padding = '10px';
   statusIndicator.style.backgroundColor = '#f8f8f8';
   statusIndicator.style.border = '1px solid #ddd';
   statusIndicator.style.borderRadius = '5px';
-  statusIndicator.style.position = 'fixed';
-  statusIndicator.style.bottom = '20px';
-  statusIndicator.style.right = '20px';
-  statusIndicator.style.zIndex = '1000';
-  statusIndicator.style.fontSize = '16px'; // 增加字体大小
-  statusIndicator.style.width = '200px'; // 设置宽度
-  statusIndicator.style.height = '100px'; // 设置高度
+  statusIndicator.style.position = 'fixed'; // 固定位置
+  statusIndicator.style.top = '20px'; // 距离顶部20px
+  statusIndicator.style.right = '20px'; // 距离右侧20px
+  statusIndicator.style.zIndex = '1000'; // 确保它在最上层
+  statusIndicator.style.fontSize = '18px'; // 增加字体大小
 
   // 将状态指示器添加到文档中
   document.body.appendChild(statusIndicator);

@@ -348,7 +348,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   // 调用更新画布内容的函数
-  statusIndicator.textContent = 'No points has been selected';
+  statusIndicator.textContent = 'No point has been selected';
   statusIndicator.style.display = 'block'; // 确保状态指示器是可见的
   updateCanvas();
 });

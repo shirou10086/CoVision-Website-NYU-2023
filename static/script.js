@@ -1,4 +1,19 @@
 document.addEventListener("DOMContentLoaded", function() {
+  var statusIndicator = document.createElement('div');
+  statusIndicator.id = 'statusIndicator';
+
+  // 应用样式
+  statusIndicator.style.padding = '10px';
+  statusIndicator.style.backgroundColor = '#f8f8f8';
+  statusIndicator.style.border = '1px solid #ddd';
+  statusIndicator.style.borderRadius = '5px';
+  statusIndicator.style.position = 'fixed'; // 固定位置
+  statusIndicator.style.bottom = '20px'; // 距离底部20px
+  statusIndicator.style.right = '20px'; // 距离右侧20px
+  statusIndicator.style.zIndex = '1000'; // 确保它在最上层
+
+  // 将状态指示器添加到文档中
+  document.body.appendChild(statusIndicator);
   var mode = 'Auto'; // 全局变量，用于切换数据集
   var subfolderList = mode === 'Auto' ? subfolderList_Auto : subfolderList_Manually;
   var floormap = mode === 'Auto' ? floormap_Auto : floormap_Manually;
@@ -126,9 +141,10 @@ document.addEventListener("DOMContentLoaded", function() {
              entry.label === 1; // Assuming label 1 means there is a connection, as per your system
     });
 
-    if (isConnected) {
-      alert(`Node ${nodeIndexOfImage2} and Node ${nodeIndexOfImage3} are connected!`);
-    }
+    // 更新状态指示器
+    var statusText = isConnected ? `Node ${nodeIndexOfImage2} and Node ${nodeIndexOfImage3} are connected!` : `Node ${nodeIndexOfImage2} and Node ${nodeIndexOfImage3} are not connected.`;
+    statusIndicator.textContent = statusText;
+    statusIndicator.style.display = 'block'; // 确保状态指示器是可见的
 
     // 切换下一个要更新的画布
     nextCanvasToUpdate = (nextCanvasToUpdate === 2) ? 3 : 2;

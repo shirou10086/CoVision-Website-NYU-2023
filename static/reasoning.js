@@ -279,6 +279,37 @@ document.addEventListener("DOMContentLoaded", function() {
     floorSelect.selectedIndex = floorIndex;
     floor = floorIndex;
   }
+  function toggleFullScreen(element) {
+    if (!document.fullscreenElement &&    // 检查当前是否有元素处于全屏状态
+        !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) { // 这些是为了兼容各种浏览器
+      if (element.requestFullscreen) {
+        element.requestFullscreen(); // W3C API
+      } else if (element.msRequestFullscreen) {
+        element.msRequestFullscreen(); // IE11
+      } else if (element.mozRequestFullScreen) {
+        element.mozRequestFullScreen(); // Firefox
+      } else if (element.webkitRequestFullscreen) {
+        element.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT); // Chrome, Safari 和 Opera
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen(); // W3C API
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen(); // IE11
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen(); // Firefox
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen(); // Chrome, Safari 和 Opera
+      }
+    }
+  }
+  document.getElementById("leftCanvas").addEventListener("click", function() {
+    toggleFullScreen(this); // 传递当前元素到toggleFullScreen函数
+  });
+
+  document.getElementById("rightCanvas").addEventListener("click", function() {
+    toggleFullScreen(this); // 传递当前元素到toggleFullScreen函数
+  });
 
   randomlySelectSceneAndFloor();
   updateCanvas();

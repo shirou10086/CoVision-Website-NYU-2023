@@ -4,7 +4,7 @@ import json
 # 定义输入CSV文件和输出JS文件的路径
 input_csv_files = ['./Auto_output.csv', './Auto_output.csv']
 output_js_file = './static/pointmap.js'
-variable_names = ['json_Auto', 'json_Manually']  # 对应变量名
+variable_names = ['groundtruth_Auto', 'groundtruth_Manually']  # 对应变量名
 
 # 以追加模式打开JS文件
 with open(output_js_file, 'a', encoding='utf-8') as jsfile:

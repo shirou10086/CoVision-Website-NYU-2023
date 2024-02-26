@@ -304,6 +304,14 @@ document.addEventListener("DOMContentLoaded", function() {
       }
 
       // 当退出全屏时移除<img>元素
+      document.addEventListener("keydown", function(event) {
+          if (event.key === "Escape") {
+              // 检查是否在全屏模式下
+              if (!document.fullscreenElement && img.parentElement) {
+                  img.remove();
+              }
+          }
+      });
       document.addEventListener("fullscreenchange", function () {
           if (!document.fullscreenElement) {
               img.remove();

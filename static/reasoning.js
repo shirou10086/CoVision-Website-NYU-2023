@@ -320,11 +320,14 @@ document.addEventListener("DOMContentLoaded", function() {
           }
       }, { once: true });
   }
+
   document.getElementById("leftCanvas").addEventListener("click", function() {
+    leftImage.src = "https://spatialreasoning.s3.amazonaws.com/dataset/"+mode+'/' + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + leftImageIndex + ".png";
       toggleFullScreenWithImage(leftImage.src);
   });
 
   document.getElementById("rightCanvas").addEventListener("click", function() {
+    rightImage.src = "https://spatialreasoning.s3.amazonaws.com/dataset/"+mode+'/'  + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + rightImageIndex + ".png";
       toggleFullScreenWithImage(rightImage.src);
   });
 

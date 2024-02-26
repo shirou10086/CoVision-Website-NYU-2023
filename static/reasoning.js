@@ -303,34 +303,33 @@ document.addEventListener("DOMContentLoaded", function() {
           img.msRequestFullscreen();
       }
 
-      // 当退出全屏时移除<img>元素
-      document.addEventListener("keydown", function(event) {
+      function removeImage() {
+          if (img.parentElement) {
+              img.remove();
+          }
+      }
+
+      function onKeydown(event) {
           if (event.key === "Escape") {
-              // 检查是否在全屏模式下
-              img.remove();
+              removeImage();
           }
-      });
-      document.addEventListener("fullscreenchange", function () {
+      }
+
+      function onFullscreenChange() {
           if (!document.fullscreenElement) {
-              img.remove();
+              removeImage();
+              document.removeEventListener("keydown", onKeydown);
           }
-      }, { once: true });
-      document.addEventListener("webkitfullscreenchange", function () {
-          if (!document.webkitIsFullScreen) {
-              img.remove();
-          }
-      }, { once: true });
-      document.addEventListener("mozfullscreenchange", function () {
-          if (!document.mozFullScreen) {
-              img.remove();
-          }
-      }, { once: true });
-      document.addEventListener("MSFullscreenChange", function () {
-          if (!document.msFullscreenElement) {
-              img.remove();
-          }
-      }, { once: true });
+      }
+
+      // 添加侦听器
+      document.addEventListener("keydown", onKeydown);
+      document.addEventListener("fullscreenchange", onFullscreenChange, { once: true });
+      document.addEventListener("webkitfullscreenchange", onFullscreenChange, { once: true });
+      document.addEventListener("mozfullscreenchange", onFullscreenChange, { once: true });
+      document.addEventListener("MSFullscreenChange", onFullscreenChange, { once: true });
   }
+
 
   document.getElementById("leftCanvas").addEventListener("click", function() {
       toggleFullScreenWithImage(leftImagesrc);

@@ -310,6 +310,13 @@ document.addEventListener("DOMContentLoaded", function() {
   document.getElementById("rightCanvas").addEventListener("click", function() {
     toggleFullScreen(this); // 传递当前元素到toggleFullScreen函数
   });
+  document.getElementById("leftCanvas").addEventListener("click", function() {
+    window.open(leftImage.src, '_blank');
+  });
+
+  document.getElementById("rightCanvas").addEventListener("click", function() {
+    window.open(rightImage.src, '_blank');
+  });
 
   randomlySelectSceneAndFloor();
   updateCanvas();

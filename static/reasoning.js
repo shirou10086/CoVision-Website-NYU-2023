@@ -7,6 +7,9 @@ document.addEventListener("DOMContentLoaded", function() {
   var rightCanvas = document.getElementById("rightCanvas");
   var leftCtx = leftCanvas.getContext("2d");
   var rightCtx = rightCanvas.getContext("2d");
+  var leftImagesrc="";
+  var rightImagesrc="";
+
 
   var subfolderSelect = document.getElementById("subfolderSelect");
   var floorSelect = document.getElementById("floorSelect");
@@ -90,6 +93,8 @@ document.addEventListener("DOMContentLoaded", function() {
     loadImageToCanvas(rightImage, rightCtx, rightCanvas);
     leftImage.src = "https://spatialreasoning.s3.amazonaws.com/dataset/"+mode+'/' + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + leftImageIndex + ".png";
     rightImage.src = "https://spatialreasoning.s3.amazonaws.com/dataset/"+mode+'/'  + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + rightImageIndex + ".png";
+    leftImagesrc=leftImage.src;
+    rightImagesrc=rightImage.src;
     document.getElementById('toggleDataset').addEventListener('click', function() {
       // Toggle mode
       mode = mode === 'Auto' ? 'Manually' : 'Auto';
@@ -322,12 +327,10 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   document.getElementById("leftCanvas").addEventListener("click", function() {
-    var leftImagesrc = "https://spatialreasoning.s3.amazonaws.com/dataset/"+mode+'/' + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + leftImageIndex + ".png";
       toggleFullScreenWithImage(leftImagesrc);
   });
 
   document.getElementById("rightCanvas").addEventListener("click", function() {
-    var rightImagesrc = "https://spatialreasoning.s3.amazonaws.com/dataset/"+mode+'/'  + folderName + "/" + floor.toString() + "/saved_obs/best_color_" + rightImageIndex + ".png";
       toggleFullScreenWithImage(rightImagesrc);
   });
 

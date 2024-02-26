@@ -287,10 +287,12 @@ document.addEventListener("DOMContentLoaded", function() {
   function toggleFullScreenWithImage(imageSrc) {
       // 创建一个新的<img>元素
       var img = document.createElement("img");
-      img.src = imageSrc; // 设置图像源为传入的URL
+      img.src = imageSrc;
       img.style.width = "100%";
       img.style.height = "100%";
-      document.body.appendChild(img); // 将<img>元素添加到页面中
+      document.body.appendChild(img);
+
+      console.log("Image added to the page.");
 
       // 请求全屏
       if (img.requestFullscreen) {
@@ -303,31 +305,42 @@ document.addEventListener("DOMContentLoaded", function() {
           img.msRequestFullscreen();
       }
 
+      console.log("Fullscreen requested.");
+
+      // 定义移除图片的函数
       function removeImage() {
           if (img.parentElement) {
               img.remove();
+              console.log("Image removed from the page.");
           }
       }
 
+      // 监听键盘事件
       function onKeydown(event) {
           if (event.key === "Escape") {
+              console.log("Escape key pressed.");
               removeImage();
           }
       }
 
+      // 监听全屏变化事件
       function onFullscreenChange() {
           if (!document.fullscreenElement) {
+              console.log("Fullscreen change detected.");
               removeImage();
-              document.removeEventListener("keydown", onKeydown);
+              // 移除键盘事件监听器，防止内存泄漏
+              console.log("Event listeners removed.");
           }
       }
 
-      // 添加侦听器
+      // 添加事件监听器
       document.addEventListener("keydown", onKeydown);
       document.addEventListener("fullscreenchange", onFullscreenChange, { once: true });
       document.addEventListener("webkitfullscreenchange", onFullscreenChange, { once: true });
       document.addEventListener("mozfullscreenchange", onFullscreenChange, { once: true });
       document.addEventListener("MSFullscreenChange", onFullscreenChange, { once: true });
+
+      console.log("Event listeners added.");
   }
 
 

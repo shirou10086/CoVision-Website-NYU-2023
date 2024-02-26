@@ -279,38 +279,53 @@ document.addEventListener("DOMContentLoaded", function() {
     floorSelect.selectedIndex = floorIndex;
     floor = floorIndex;
   }
-  function toggleFullScreen(element) {
-    if (!document.fullscreenElement &&    // 检查当前是否有元素处于全屏状态
-        !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) { // 这些是为了兼容各种浏览器
-      if (element.requestFullscreen) {
-        element.requestFullscreen(); // W3C API
-      } else if (element.msRequestFullscreen) {
-        element.msRequestFullscreen(); // IE11
-      } else if (element.mozRequestFullScreen) {
-        element.mozRequestFullScreen(); // Firefox
-      } else if (element.webkitRequestFullscreen) {
-        element.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT); // Chrome, Safari 和 Opera
+  function toggleFullScreenWithImage(imageSrc) {
+      // 创建一个新的<img>元素
+      var img = document.createElement("img");
+      img.src = imageSrc; // 设置图像源为传入的URL
+      img.style.width = "100%";
+      img.style.height = "100%";
+      document.body.appendChild(img); // 将<img>元素添加到页面中
+
+      // 请求全屏
+      if (img.requestFullscreen) {
+          img.requestFullscreen();
+      } else if (img.mozRequestFullScreen) {
+          img.mozRequestFullScreen();
+      } else if (img.webkitRequestFullscreen) {
+          img.webkitRequestFullscreen();
+      } else if (img.msRequestFullscreen) {
+          img.msRequestFullscreen();
       }
-    } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen(); // W3C API
-      } else if (document.msExitFullscreen) {
-        document.msExitFullscreen(); // IE11
-      } else if (document.mozCancelFullScreen) {
-        document.mozCancelFullScreen(); // Firefox
-      } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen(); // Chrome, Safari 和 Opera
-      }
-    }
+
+      // 当退出全屏时移除<img>元素
+      document.addEventListener("fullscreenchange", function () {
+          if (!document.fullscreenElement) {
+              img.remove();
+          }
+      }, { once: true });
+      document.addEventListener("webkitfullscreenchange", function () {
+          if (!document.webkitIsFullScreen) {
+              img.remove();
+          }
+      }, { once: true });
+      document.addEventListener("mozfullscreenchange", function () {
+          if (!document.mozFullScreen) {
+              img.remove();
+          }
+      }, { once: true });
+      document.addEventListener("MSFullscreenChange", function () {
+          if (!document.msFullscreenElement) {
+              img.remove();
+          }
+      }, { once: true });
   }
   document.getElementById("leftCanvas").addEventListener("click", function() {
-    // 使用leftImage的src属性作为URL
-    window.open(leftImage.src, '_blank').focus();
+      toggleFullScreenWithImage(leftImage.src);
   });
 
   document.getElementById("rightCanvas").addEventListener("click", function() {
-    // 使用rightImage的src属性作为URL
-    window.open(rightImage.src, '_blank').focus();
+      toggleFullScreenWithImage(rightImage.src);
   });
 
 

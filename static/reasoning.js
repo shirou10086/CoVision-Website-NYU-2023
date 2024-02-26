@@ -307,9 +307,7 @@ document.addEventListener("DOMContentLoaded", function() {
       document.addEventListener("keydown", function(event) {
           if (event.key === "Escape") {
               // 检查是否在全屏模式下
-              if (!document.fullscreenElement && img.parentElement) {
-                  img.remove();
-              }
+              img.remove();
           }
       });
       document.addEventListener("fullscreenchange", function () {

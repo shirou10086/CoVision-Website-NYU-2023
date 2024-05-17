@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="static/unkown.png" type="image/x-icon">
+  <link rel="icon" href="static/unknown.png" type="image/x-icon">
   <title>Co-VisiON</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <style>
@@ -12,7 +13,7 @@
     }
 
     .navbar-custom {
-      background-color: #000000; /* unkown紫色 57068c*/
+      background-color: #57068c;
     }
 
     .navbar-custom .navbar-brand {
@@ -65,7 +66,7 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-custom">
     <a class="navbar-brand" href="#">
-      <img src="static/unkown-logo.jpg" alt="unkown Logo" height='60' width='60' class="d-inline-block align-top">
+      <img src="static/unknown-logo.jpg" alt="unknown Logo" height='60' width='60' class="d-inline-block align-top">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
       aria-expanded="false" aria-label="Toggle navigation">
@@ -100,13 +101,13 @@
 
   <div class="container">
     <h2>Abstract:</h2>
-    <p>Humans possess amazing spatial reasoning abilities to analyze the co-visibility, i.e., the sharing of field-of-view, of a few images that are sparsely distributed in a complex scene. The large difference and the partial observability in those sparse views pose significant challenges to existing 3D vision techniques for pairwise image or feature-matching. A holistic approach that analyzes the entire set of images is essential for progress in 3D vision, embodied intelligence, and robotics. Thus, we propose the <strong>Co-Visibility reasONing (Co-VisiON)</strong> task and curate an open-source dataset to facilitate the study of this problem. We develop an automated method to sample sparse image sets and their co-visibilities from photorealistic indoor simulation environments, allowing us to quickly generate a large-scale dataset from Gibson and HM3D environments. Additionally, we cross-validate the labeling of our dataset and test the trained model on our manually annotated co-visibilities, both on the generated and real-world sets. To solve this task, we benchmark various baselines on this dataset, including feature matching, visual place recognition (VPR), supervised or contrastive learning, and Large Vison Language Models (VLMs), among others. Subsequently, we assessed the applicability of our dataset and Co-VisiON graph on downstream challenges, including 3D reconstruction, cross-view completion, and Sim2Real. Our baseline benchmarks and downstream tasks highlight the challenges, importance, and calls for more studies in the community.</p>
+    <p>Humans possess amazing spatial reasoning abilities to analyze the co-visibility, i.e., the sharing of field-of-view, of a few images that are sparsely distributed in a complex scene. The large difference and the partial observability in those sparse views pose significant challenges to existing 3D vision techniques for pairwise image or feature-matching. A holistic approach that analyzes the entire set of images is essential for progress in 3D vision, embodied intelligence, and robotics. Thus, we propose the Co-Visibility reasONing (Co-VisiON) task and curate an open-source dataset to facilitate the study of this problem. We develop an automated method to sample sparse image sets and their co-visibilities from photorealistic indoor simulation environments, allowing us to quickly generate a large-scale dataset from Gibson and HM3D environments. Additionally, we cross-validate the labeling of our dataset and test the trained model on our manually annotated co-visibilities, both on the generated and real-world sets. To solve this task, we benchmark various baselines on this dataset, including feature matching, visual place recognition (VPR), supervised or contrastive learning, and Large Vison Language Models (VLMs), among others. Subsequently, we assessed the applicability of our dataset and Co-VisiON graph on downstream challenges, including 3D reconstruction, cross-view completion, and Sim2Real. Our baseline benchmarks and downstream tasks highlight the challenges, importance, and calls for more studies in the community.</p>
     <div style="display: flex; justify-content: center;">
       <img src="static/figure1_teaser.png" alt="Overall Pipeline" width="800" height="450">
     </div>
     <h4>1. Task Definition:</h4>
     <p>
-        If two images have enough overlapping fields of view (FOV), they should be connected in the binary co-visibility graph. Traditional pairwise feature-matching techniques fall short of this task when facing diverse viewpoints with significant angular and spatial disparities. A more holistic analysis of the whole set of images jointly is required to tackle this challenging spatial reasoning task.
+        If two images have enough overlapping fields of view (FOV), they should be connected in the binary co-visibility graph.Traditional pairwise feature-matching techniques fall short of this task when facing diverse viewpoints with significant angular and spatial disparities. A more holistic analysis of the whole set of images jointly is required to tackle this challenging spatial reasoning task.
     </p>
     <h4>2. Baseline Methods:</h4>
     <ul>
@@ -138,8 +139,11 @@
     <div style="display: flex; justify-content: center;">
       <img src="static/pipeline2.png" alt="Overall Pipeline" width="800" height="450">
     </div>
+
     <h4>5. Conclusion:</h4>
-    <p><strong>Limitation:</strong> The current co-visibility reasoning task presents several notable limitations. For the dataset, the scenes are restricted to the Gibson and HM3D environment and the human annotations are limited. With the proposed data collection pipeline and website, our future works will continue to enlarge and diversify the dataset scenes with other sources including from the real world. For the methods, we only experimented with predominant baselines from relevant tasks and their performance leaves significant room for improvement. Future works will consider developing new methods that can reason with the entire images set from a scene altogether or conducting imitation learning following the human co-visibility reasoning process.</p>
+    <p><strong>Limitation:</strong> The current co-visibility reasoning task presents several notable limitations. For the dataset, the scenes are restricted to the Gibson and HM3D environment and the human annotations are limited. With the proposed data collection pipeline and website, our future works will continue to enlarge and diversify the dataset scenes with other sources including from the real world. For the methods, we only experimented with predominant baselines from relevant tasks and their
+
+ performance leaves significant room for improvement. Future works will consider developing new methods that can reason with the entire images set from a scene altogether or conducting imitation learning following the human co-visibility reasoning process.</p>
     <p><strong>Summary:</strong> This paper proposes the Co-Visibility reasONing (Co-VisiON) task, where models are presented with sparse image sets taken in an indoor environment, and are asked to reason their co-visibilities relationships by figuring out the view connectivity and predicting a binary co-visibility graph. We curated a dataset designated to this task containing both human and automated annotations and conducted comprehensive experiments to show the Co-VisiON task challenges predominant image classification and matching baselines. We hope the Co-VisiON task can facilitate future research in embodied scene understanding.</p>
   </div>
 
